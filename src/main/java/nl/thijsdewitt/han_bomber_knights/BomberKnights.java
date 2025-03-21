@@ -11,7 +11,7 @@ public class BomberKnights extends YaegerGame {
     @Override
     public void setupGame() {
         setGameTitle("Bomber Knights");
-        setSize(new Size(800, 600));
+        setSize(new Size(1200, 800));
     }
 
     @Override
