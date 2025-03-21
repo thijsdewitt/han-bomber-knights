@@ -1,0 +1,59 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+left to right direction
+
+class YaegerGame #lightblue {
+}
+
+class DynamicScene #lightblue {
+}
+
+class DynamicScene #lightblue {
+}
+
+class RectangleEntity #lightblue {
+}
+
+class BomberKnights {
+}
+
+package scenes {
+    class StartScene {
+    }
+
+    class MapSelectorScene {
+    }
+
+    class GameScene {
+    }
+
+    class WinScreen {
+    }
+}
+
+package entities {
+    class Player {
+    }
+
+    class Bomb {
+    }
+
+    class Wall {
+    }
+
+    class Crate {
+    }
+
+    class PowerUp {
+    }
+}
+
+YaegerGame <|-- BomberKnights
+DynamicScene <|-- StartScene
+DynamicScene <|-- MapSelectorScene
+DynamicScene <|-- GameScene
+DynamicScene <|-- WinScreen
+
+
+@enduml
