@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-459.0" y="444.5">nl.thijsdewitt.han_bomber_knights.scenes.MapSelectorScene</node>
+    <node x="-528.0" y="592.5">nl.thijsdewitt.han_bomber_knights.entities.tilemap.WorldGen</node>
+    <node x="-528.5" y="804.0">nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp</node>
+    <node x="-801.5" y="592.0">nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp</node>
+    <node x="-317.0" y="816.5">nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp</node>
+    <node x="-605.0" y="284.5">nl.thijsdewitt.han_bomber_knights.scenes.StartScene</node>
+    <node x="-800.0" y="420.0">nl.thijsdewitt.han_bomber_knights.entities.Player</node>
+    <node x="-705.0" y="144.5">nl.thijsdewitt.han_bomber_knights.scenes.GameScene</node>
+    <node x="-803.0" y="816.5">nl.thijsdewitt.han_bomber_knights.entities.powerups.BiggerExplosionPowerUp</node>
+    <node x="-805.0" y="24.5">nl.thijsdewitt.han_bomber_knights.scenes.WinScreen</node>
+    <node x="-805.0" y="272.5">nl.thijsdewitt.han_bomber_knights.BomberKnights</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="nl.thijsdewitt.han_bomber_knights.entities.powerups.BiggerExplosionPowerUp" target="nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp" target="nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp" relationship="GENERALIZATION">
+      <point x="0.0" y="-44.0" />
+      <point x="-440.0" y="768.0" />
+      <point x="-680.0" y="768.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp" target="nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="-220.0" y="768.0" />
+      <point x="-680.0" y="768.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.8907657657657657" showDependencies="false" x="-453.9999999999999" y="468.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
