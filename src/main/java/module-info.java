@@ -6,5 +6,6 @@ module waterworld {
     exports nl.thijsdewitt.han_bomber_knights;
     exports nl.thijsdewitt.han_bomber_knights.entities.map;
 
+    opens audio;
     opens sprites;
 }
