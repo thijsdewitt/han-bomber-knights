@@ -12,7 +12,7 @@ public class SpeedUpPowerUp extends AbstractPowerUp {
     @Override
     public void activate(@NotNull Player player) {
         player.addPowerUpToHud(this);
-        // TODO: Play sound
+        play_sound();
         player.setSpeed(player.getSpeed() + 1);
     }
 }

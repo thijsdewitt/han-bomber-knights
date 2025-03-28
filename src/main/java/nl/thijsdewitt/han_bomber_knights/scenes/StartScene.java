@@ -1,6 +1,7 @@
 package nl.thijsdewitt.han_bomber_knights.scenes;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.media.SoundClip;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import nl.thijsdewitt.han_bomber_knights.BomberKnights;
 import nl.thijsdewitt.han_bomber_knights.entities.buttons.text_button.TextButton;

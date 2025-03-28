@@ -16,7 +16,7 @@ public class HealthPowerUp extends AbstractPowerUp {
 
     @Override
     public void activate(@NotNull Player player) {
-        // TODO: Play sound
+        play_sound();
         player.setHealth(player.getHealth() + 1);
     }
 }
