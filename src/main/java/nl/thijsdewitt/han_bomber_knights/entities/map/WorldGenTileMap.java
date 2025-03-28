@@ -3,7 +3,9 @@ package nl.thijsdewitt.han_bomber_knights.entities.map;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.TileMap;
+import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,42 +16,41 @@ import java.io.InputStream;
 import static nl.thijsdewitt.han_bomber_knights.BomberKnights.SCREEN_SIZE;
 
 public class WorldGenTileMap extends TileMap {
-    public WorldGenTileMap() {
-        super(new Coordinate2D(SCREEN_SIZE.width()/2, SCREEN_SIZE.height()/2), new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32));
+    private final Class<? extends YaegerEntity> tileMapClass;
+
+    public WorldGenTileMap(Class<? extends YaegerEntity> tileMapClass) {
+        super(new Coordinate2D(SCREEN_SIZE.width() / 2, SCREEN_SIZE.height() / 2), new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32));
+        this.tileMapClass = tileMapClass;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
     }
 
     @Override
     public void setupEntities() {
-        addEntity(-1, FireZoneTile.class, 5);
-        addEntity(0xFF000000, FireZoneTile.class, 7);
-        addEntity(0xFF080808, FireZoneTile.class, 8);
-        addEntity(0xFF101010, FireZoneTile.class, 9);
-        addEntity(0xFF181818, FireZoneTile.class, 17);
-        addEntity(0xFF202020, FireZoneTile.class, 15);
-        addEntity(0xFF282828, FireZoneTile.class, 19);
-        addEntity(0xFF303030, FireZoneTile.class, 27);
-        addEntity(0xFF383838, FireZoneTile.class, 28);
-        addEntity(0xFF404040, FireZoneTile.class, 29);
-        addEntity(0xFFEEEEEE, FireZoneTile.class, 18);
-        addEntity(0xFFDDDDDD, FireZoneTile.class, 25);
+        addEntity(-1, tileMapClass, 5);
+        addEntity(0xFF000000, tileMapClass, 7);
+        addEntity(0xFF080808, tileMapClass, 8);
+        addEntity(0xFF101010, tileMapClass, 9);
+        addEntity(0xFF181818, tileMapClass, 17);
+        addEntity(0xFF202020, tileMapClass, 15);
+        addEntity(0xFF282828, tileMapClass, 19);
+        addEntity(0xFF303030, tileMapClass, 27);
+        addEntity(0xFF383838, tileMapClass, 28);
+        addEntity(0xFF404040, tileMapClass, 29);
+        addEntity(0xFFEEEEEE, tileMapClass, 18);
+        addEntity(0xFFDDDDDD, tileMapClass, 25);
     }
 
     @Override
     public int[][] defineMap() {
         Image image = loadResource("sprites/test.png");
-        int[][] map = image.getPixels2D();
-        return map;
+        return image.getPixels2D();
     }
 
     /**
      * Dit is source code van Processing
      * https://github.com/ruby-processing/processing-core/blob/7a46f4e20b3679b1696ae2b911f092f016f803b9/src/main/java/processing/core/util/image/load/ImageIoImageLoadStrategy.java#L95-L128
-     *
-     * @param filename
-     * @return
      */
-    private Image loadResource(String filename) {
+    private @NotNull Image loadResource(String filename) {
         try {
             // get absolute path to the resource
             var absolutePath = getClass().getResource("/" + filename).getPath();
