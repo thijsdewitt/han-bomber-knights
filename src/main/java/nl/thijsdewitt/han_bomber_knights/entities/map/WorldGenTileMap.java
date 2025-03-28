@@ -37,7 +37,7 @@ public class WorldGenTileMap extends TileMap {
 
     @Override
     public int[][] defineMap() {
-        Image image = loadResource("tilemaps/test.png");
+        Image image = loadResource("sprites/test.png");
         int[][] map = image.getPixels2D();
         return map;
     }
