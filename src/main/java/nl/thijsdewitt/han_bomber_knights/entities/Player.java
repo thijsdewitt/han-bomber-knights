@@ -27,8 +27,6 @@ public class Player extends DynamicSpriteEntity implements Collided, Collider {
                 powerUp.activate(this);
                 powerUp.remove();
             }
-
-            if
         });
     }
 
