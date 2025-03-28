@@ -15,8 +15,7 @@ public class TextButtonTitle extends TextEntity {
         setFill(Color.WHITE);
     }
 
-    public void SetFill(Color c){
-        setFill(c);
+    public void SetFill(Color color) {
+        setFill(color);
     }
-
 }

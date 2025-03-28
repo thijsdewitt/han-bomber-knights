@@ -19,10 +19,9 @@ public class TextButton extends CompositeEntity implements MouseButtonPressedLis
         super(initialLocation);
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
 
-        textButtonTitle = new TextButtonTitle(new Coordinate2D(0,0), text);
-        textButtonBox = new TextButtonBox(new Coordinate2D(0,0), 90, 40);
+        textButtonTitle = new TextButtonTitle(new Coordinate2D(0, 0), text);
+        textButtonBox = new TextButtonBox(new Coordinate2D(0, 0), 90, 40);
     }
-
 
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
