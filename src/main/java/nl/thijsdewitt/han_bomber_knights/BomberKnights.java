@@ -2,12 +2,11 @@ package nl.thijsdewitt.han_bomber_knights;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
-import nl.thijsdewitt.han_bomber_knights.scenes.GameScene;
-import nl.thijsdewitt.han_bomber_knights.scenes.MapSelectorScene;
-import nl.thijsdewitt.han_bomber_knights.scenes.StartScene;
-import nl.thijsdewitt.han_bomber_knights.scenes.WinScene;
+import nl.thijsdewitt.han_bomber_knights.scenes.*;
 
 public class BomberKnights extends YaegerGame {
+    public static final Size SCREEN_SIZE = new Size(1248, 832);
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -15,15 +14,17 @@ public class BomberKnights extends YaegerGame {
     @Override
     public void setupGame() {
         setGameTitle("Bomber Knights");
-        setSize(new Size(1200, 800));
+        setSize(SCREEN_SIZE);
     }
 
     @Override
     public void setupScenes() {
         addScene(0, new StartScene(this));
         addScene(1, new MapSelectorScene(this));
-        addScene(2, new GameScene());
+        addScene(2, new FireZoneGameScene());
+        addScene(3, new UnderTheCastleGameScene());
         addScene(3, new WinScene());
+
         setActiveScene(0);
     }
 }
