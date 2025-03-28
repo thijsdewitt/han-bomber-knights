@@ -4,4 +4,6 @@ module waterworld {
     requires java.desktop;
 
     exports nl.thijsdewitt.han_bomber_knights;
+
+    opens sprites;
 }
