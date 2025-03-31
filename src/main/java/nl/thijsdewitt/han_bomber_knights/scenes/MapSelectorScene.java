@@ -21,7 +21,7 @@ public class MapSelectorScene extends StaticScene {
     @Override
     public void setupEntities() {
         ImageButton test = new ImageButton(new Coordinate2D(100, 100), "sprites/bomberman.png", 100, 100);
-        test.onClick(() -> app.setActiveScene(2));
+        test.onClick(() -> app.setActiveScene(3));
         addEntity(test);
     }
 }
