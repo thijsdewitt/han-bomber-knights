@@ -34,7 +34,7 @@ public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
         });
     }
 
-    public void play_sound(){
+    public void playSound(){
         var popSound = new SoundClip("audio/power_up.mp3");
         popSound.play();
     }
