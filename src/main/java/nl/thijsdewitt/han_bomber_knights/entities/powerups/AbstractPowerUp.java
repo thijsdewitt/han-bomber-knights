@@ -4,6 +4,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
+import com.github.hanyaeger.api.media.SoundClip;
 import nl.thijsdewitt.han_bomber_knights.entities.Player;
 
 import java.util.List;
@@ -31,5 +32,10 @@ public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
                 remove();
             }
         });
+    }
+
+    public void playSound(){
+        var popSound = new SoundClip("audio/power_up.mp3");
+        popSound.play();
     }
 }
