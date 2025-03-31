@@ -81,7 +81,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.isEmpty()) {
             setSpeed(0);
-            setAutoCycleRow(getAutoCycleRow() + 4);
+            setAutoCycleRow((getAutoCycleRow() + 4) % 8);
             return;
         }
 
