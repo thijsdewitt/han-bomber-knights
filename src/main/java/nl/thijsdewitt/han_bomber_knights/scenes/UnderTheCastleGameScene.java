@@ -16,7 +16,7 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
 
     @Override
     public void setupEntities() {
-        Player player1 = new Player(new Coordinate2D(10, 10));
+        Player player1 = new Player(new Coordinate2D(290, 82));
         addEntity(player1);
     }
 

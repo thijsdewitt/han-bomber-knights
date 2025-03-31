@@ -26,18 +26,18 @@ public class WorldGenTileMap extends TileMap {
 
     @Override
     public void setupEntities() {
-        addEntity(-1, tileMapClass, 5);
-        addEntity(0xFF000000, tileMapClass, 7);
-        addEntity(0xFF080808, tileMapClass, 8);
-        addEntity(0xFF101010, tileMapClass, 9);
-        addEntity(0xFF181818, tileMapClass, 17);
-        addEntity(0xFF202020, tileMapClass, 15);
-        addEntity(0xFF282828, tileMapClass, 19);
-        addEntity(0xFF303030, tileMapClass, 27);
-        addEntity(0xFF383838, tileMapClass, 28);
-        addEntity(0xFF404040, tileMapClass, 29);
-        addEntity(0xFFEEEEEE, tileMapClass, 18);
-        addEntity(0xFFDDDDDD, tileMapClass, 25);
+        addEntity(-1, UnderTheCastleTile.class, 5);
+        addEntity(0xFF000000, UnderTheCastleWall.class, 7);
+        addEntity(0xFF080808, UnderTheCastleWall.class, 8);
+        addEntity(0xFF101010, UnderTheCastleWall.class, 9);
+        addEntity(0xFF181818, UnderTheCastleWall.class, 17);
+        addEntity(0xFF202020, UnderTheCastleWall.class, 15);
+        addEntity(0xFF282828, UnderTheCastleWall.class, 19);
+        addEntity(0xFF303030, UnderTheCastleWall.class, 27);
+        addEntity(0xFF383838, UnderTheCastleWall.class, 28);
+        addEntity(0xFF404040, UnderTheCastleWall.class, 29);
+        addEntity(0xFFEEEEEE, UnderTheCastleTile.class, 18);
+        addEntity(0xFFDDDDDD, UnderTheCastleTile.class, 25);
     }
 
     @Override

@@ -2,19 +2,18 @@ package nl.thijsdewitt.han_bomber_knights.entities;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
+import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleWall;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
-public class Player extends DynamicSpriteEntity implements Collided, Collider, KeyListener {
+public class Player extends DynamicSpriteEntity implements Collider, KeyListener {
     private static final int MAX_HEALTH = 3;
 
     private final ArrayList<AbstractPowerUp> powerUps = new ArrayList<>();
@@ -23,19 +22,36 @@ public class Player extends DynamicSpriteEntity implements Collided, Collider, K
     private int walkSpeed = 3;
 
     public Player(Coordinate2D location) {
-        super("sprites/Blue Knight run Sprite-sheet 16x17.png", location, new Size(64), 4, 8);
-        setAutoCycle(1000 / 8);
-        setAutoCycleRow(0);
+        super("sprites/blue_knight_16x17.png", location, new Size(56), 8, 8);
+        setAutoCycle(100);
+        setAutoCycleRow(4);
     }
 
-    @Override
-    public void onCollision(List<Collider> collidingObjects) {
-        collidingObjects.forEach(collidingObject -> {
-            if (collidingObject instanceof AbstractPowerUp powerUp) {
-                powerUp.activate(this);
-                powerUp.remove();
+    public void handleCollision(UnderTheCastleWall tile) {
+        Direction direction = Direction.valueOf(getDirection());
+        switch (direction) {
+            case Direction.DOWN -> {
+                setAnchorLocationY(tile.getBoundingBox().getMinY() - getHeight() - 1);
+                nullifySpeedInDirection(Direction.DOWN);
             }
-        });
+            case Direction.RIGHT -> {
+                setAnchorLocationX(tile.getBoundingBox().getMinX() - getWidth() - 1);
+                nullifySpeedInDirection(Direction.RIGHT);
+            }
+            case Direction.UP -> {
+                setAnchorLocationY(tile.getBoundingBox().getMaxY() + 1);
+                nullifySpeedInDirection(Direction.UP);
+            }
+            case Direction.LEFT -> {
+                setAnchorLocationX(tile.getBoundingBox().getMaxX() + 1);
+                nullifySpeedInDirection(Direction.LEFT);
+            }
+        }
+    }
+
+    public void handleCollision(AbstractPowerUp powerUp) {
+        powerUp.activate(this);
+        powerUp.remove();
     }
 
     public void addPowerUpToHud(AbstractPowerUp powerUp) {
@@ -63,21 +79,32 @@ public class Player extends DynamicSpriteEntity implements Collided, Collider, K
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        if (pressedKeys.contains(KeyCode.UP)) {
-            setMotion(walkSpeed, Direction.UP);
-            setAutoCycleRow(2);
-        } else if (pressedKeys.contains(KeyCode.DOWN)) {
-            setMotion(walkSpeed, Direction.DOWN);
-            setAutoCycleRow(0);
-        } else if (pressedKeys.contains(KeyCode.LEFT)) {
-            setMotion(walkSpeed, Direction.LEFT);
-            setAutoCycleRow(3);
-        } else if (pressedKeys.contains(KeyCode.RIGHT)) {
-            setMotion(walkSpeed, Direction.RIGHT);
-            setAutoCycleRow(1);
-        } else {
+        if (pressedKeys.isEmpty()) {
             setSpeed(0);
+            setAutoCycleRow(getAutoCycleRow() + 4);
+            return;
         }
+
+        pressedKeys.forEach(keyCode -> {
+            switch (keyCode) {
+                case UP -> {
+                    setAutoCycleRow(2);
+                    setMotion(getWalkSpeed(), Direction.UP);
+                }
+                case DOWN -> {
+                    setAutoCycleRow(0);
+                    setMotion(getWalkSpeed(), Direction.DOWN);
+                }
+                case LEFT -> {
+                    setAutoCycleRow(3);
+                    setMotion(getWalkSpeed(), Direction.LEFT);
+                }
+                case RIGHT -> {
+                    setAutoCycleRow(1);
+                    setMotion(getWalkSpeed(), Direction.RIGHT);
+                }
+            }
+        });
     }
 
     public int getWalkSpeed() {
