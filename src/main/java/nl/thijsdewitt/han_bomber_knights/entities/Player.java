@@ -33,24 +33,24 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         double centerY = this.getBoundingBox().getCenterY();
 
         switch (direction) {
-            case DOWN -> {
-                setAnchorLocationY(tile.getBoundingBox().getMinY() - getHeight() - 1);
-                nullifySpeedInDirection(Direction.DOWN);
-                adjustHorizontalPosition(tile, centerX);
-            }
-            case RIGHT -> {
-                setAnchorLocationX(tile.getBoundingBox().getMinX() - getWidth() - 1);
-                nullifySpeedInDirection(Direction.RIGHT);
-                adjustVerticalPosition(tile, centerY);
-            }
             case UP -> {
                 setAnchorLocationY(tile.getBoundingBox().getMaxY() + 1);
                 nullifySpeedInDirection(Direction.UP);
                 adjustHorizontalPosition(tile, centerX);
             }
+            case DOWN -> {
+                setAnchorLocationY(tile.getBoundingBox().getMinY() - getHeight() - 1);
+                nullifySpeedInDirection(Direction.DOWN);
+                adjustHorizontalPosition(tile, centerX);
+            }
             case LEFT -> {
                 setAnchorLocationX(tile.getBoundingBox().getMaxX() + 1);
                 nullifySpeedInDirection(Direction.LEFT);
+                adjustVerticalPosition(tile, centerY);
+            }
+            case RIGHT -> {
+                setAnchorLocationX(tile.getBoundingBox().getMinX() - getWidth() - 1);
+                nullifySpeedInDirection(Direction.RIGHT);
                 adjustVerticalPosition(tile, centerY);
             }
         }
