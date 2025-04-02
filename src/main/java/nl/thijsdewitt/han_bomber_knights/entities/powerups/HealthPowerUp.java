@@ -5,6 +5,7 @@ import nl.thijsdewitt.han_bomber_knights.entities.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class HealthPowerUp extends AbstractPowerUp {
+    private String imagePath = "sprites/HealthUp.png";
     protected HealthPowerUp(String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation);
     }
@@ -18,5 +19,10 @@ public class HealthPowerUp extends AbstractPowerUp {
     public void activate(@NotNull Player player) {
         // TODO: Play sound
         player.setHealth(player.getHealth() + 1);
+    }
+
+    @Override
+    public String getImagePath(){
+        return imagePath;
     }
 }

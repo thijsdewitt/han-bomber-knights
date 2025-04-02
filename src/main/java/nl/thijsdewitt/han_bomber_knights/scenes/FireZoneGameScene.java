@@ -16,8 +16,8 @@ public class FireZoneGameScene extends DynamicScene implements TileMapContainer 
 
     @Override
     public void setupEntities() {
-        Player player1 = new Player(new Coordinate2D(10, 10));
-        addEntity(player1);
+        //Player player1 = new Player(new Coordinate2D(10, 10), );
+        //addEntity(player1);
     }
 
     @Override
