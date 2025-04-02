@@ -3,23 +3,17 @@ package nl.thijsdewitt.han_bomber_knights.entities.bomb;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
-import com.github.hanyaeger.api.scenes.YaegerScene;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
+import com.github.hanyaeger.api.media.SoundClip;
 
 public class BombEntity extends DynamicSpriteEntity {
-    private final int explosionRadius;
-    private final YaegerScene scene;
-
-    public BombEntity(YaegerScene scene, Coordinate2D initialLocation, int explosionRadius) {
-        super("sprites/bomb.png", initialLocation, new Size(32), 1, 15);
-        this.explosionRadius = explosionRadius;
-        this.scene = scene;
-
+    public BombEntity() {
+        super("sprites/bomb.png", new Coordinate2D(), new Size(32), 1, 15);
         setAutoCycle(100);
     }
 
-    public BombEntity(YaegerScene scene, Player player) {
-
-        this(scene, player.getAnchorLocation(), player.getExplosionRadius());
+    public void explode() {
+        var explosion = new SoundClip("audio/explosion.wav");
+        explosion.play();
+        this.remove();
     }
 }

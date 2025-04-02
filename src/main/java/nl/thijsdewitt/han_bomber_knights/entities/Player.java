@@ -24,7 +24,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private OnBombPlaceListener onBombPlaceListener;
 
     public Player(Coordinate2D location) {
-        super("sprites/blue_knight_16x17.png", location, new Size(56), 8, 8);
+        super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
     }
@@ -131,13 +131,17 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                     setMotion(getWalkSpeed(), Direction.RIGHT);
                 }
                 case SPACE -> {
-                    if (onBombPlaceListener != null) {
+                    if (onBombPlaceListener != null && !bombPlaced) {
                         bombPlaced = true;
                         onBombPlaceListener.onBombPlace(this);
                     }
                 }
             }
         });
+    }
+
+    public void resetBombPlaced() {
+        this.bombPlaced = false;
     }
 
     public int getWalkSpeed() {
