@@ -6,12 +6,13 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.scenes.TileMapContainer;
 import javafx.scene.paint.Color;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Bomb;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.ExplosionEntity;
+import nl.thijsdewitt.han_bomber_knights.entities.map.CrateTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
-import nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Controls;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
     @Override
     public void setupEntities() {
         HUD player1HUD = new HUD(new Coordinate2D(0, 0), 400, 400, "sprites/BlueKnightIcon.png");
-        Player player1 = new Player(new Coordinate2D(290, 82), player1HUD);
+        Player player1 = new Player(new Coordinate2D(290, 82), player1HUD, Controls.WSAD);
 
         player1.onBombPlace((player) -> {
             Coordinate2D bombLocation = getBombLocation(player);
@@ -74,5 +75,6 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
     @Override
     public void setupTileMaps() {
         addTileMap(tileMap);
+        addTileMap(new CrateTileMap());
     }
 }

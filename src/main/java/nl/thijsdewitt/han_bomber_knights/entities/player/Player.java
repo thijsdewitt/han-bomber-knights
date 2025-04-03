@@ -1,4 +1,4 @@
-package nl.thijsdewitt.han_bomber_knights.entities;
+package nl.thijsdewitt.han_bomber_knights.entities.player;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
@@ -8,32 +8,36 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
-import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleWall;
+import nl.thijsdewitt.han_bomber_knights.entities.map.CollidedTile;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
-import nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp;
 
 import java.util.ArrayList;
 import java.util.Set;
 
+import static nl.thijsdewitt.han_bomber_knights.entities.player.Controls.ARROWS;
+import static nl.thijsdewitt.han_bomber_knights.entities.player.Controls.WSAD;
+
 public class Player extends DynamicSpriteEntity implements Collider, KeyListener {
     private static final int MAX_HEALTH = 3;
-    private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private final ArrayList<AbstractPowerUp> powerUps = new ArrayList<>();
     boolean bombPlaced = false;
+    private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private int health = 3;
     private int explosionRadius = 3;
     private int walkSpeed = 3;
     private OnBombPlaceListener onBombPlaceListener;
-    private final HUD hud;
+    private HUD hud;
+    private Controls controls;
 
-    public Player(Coordinate2D location, HUD hud) {
+    public Player(Coordinate2D location, HUD hud, Controls controls) {
         super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
         this.hud = hud;
+        this.controls = controls;
     }
 
-    public void handleCollision(UnderTheCastleWall tile) {
+    public void handleCollision(CollidedTile tile) {
         Direction direction = Direction.valueOf(getDirection());
         double centerX = this.getBoundingBox().getCenterX();
         double centerY = this.getBoundingBox().getCenterY();
@@ -62,7 +66,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         }
     }
 
-    private void adjustHorizontalPosition(UnderTheCastleWall tile, double centerX) {
+    private void adjustHorizontalPosition(CollidedTile tile, double centerX) {
         if (tile.getBoundingBox().getMinX() >= centerX) {
             setAnchorLocationX(getAnchorLocation().getX() - 1);
         }
@@ -71,7 +75,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         }
     }
 
-    private void adjustVerticalPosition(UnderTheCastleWall tile, double centerY) {
+    private void adjustVerticalPosition(CollidedTile tile, double centerY) {
         if (tile.getBoundingBox().getMinY() >= centerY) {
             setAnchorLocationY(getAnchorLocation().getY() - 1);
         }
@@ -97,7 +101,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     public void setHealth(int health) {
         if (health > MAX_HEALTH) {
             health = MAX_HEALTH;
-        } else if(health <= 0){
+        } else if (health <= 0) {
             health = 0;
         }
         this.health = health;
@@ -119,27 +123,54 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
             return;
         }
         pressedKeys.forEach(keyCode -> {
-            switch (keyCode) {
-                case UP -> {
-                    setAutoCycleRow(2);
-                    setMotion(getWalkSpeed(), Direction.UP);
+            if (controls == ARROWS) {
+                switch (keyCode) {
+                    case UP -> {
+                        setAutoCycleRow(2);
+                        setMotion(getWalkSpeed(), Direction.UP);
+                    }
+                    case DOWN -> {
+                        setAutoCycleRow(0);
+                        setMotion(getWalkSpeed(), Direction.DOWN);
+                    }
+                    case LEFT -> {
+                        setAutoCycleRow(3);
+                        setMotion(getWalkSpeed(), Direction.LEFT);
+                    }
+                    case RIGHT -> {
+                        setAutoCycleRow(1);
+                        setMotion(getWalkSpeed(), Direction.RIGHT);
+                    }
+                    case SPACE -> {
+                        if (onBombPlaceListener != null && !bombPlaced) {
+                            bombPlaced = true;
+                            onBombPlaceListener.onBombPlace(this);
+                        }
+                    }
                 }
-                case DOWN -> {
-                    setAutoCycleRow(0);
-                    setMotion(getWalkSpeed(), Direction.DOWN);
-                }
-                case LEFT -> {
-                    setAutoCycleRow(3);
-                    setMotion(getWalkSpeed(), Direction.LEFT);
-                }
-                case RIGHT -> {
-                    setAutoCycleRow(1);
-                    setMotion(getWalkSpeed(), Direction.RIGHT);
-                }
-                case SPACE -> {
-                    if (onBombPlaceListener != null && !bombPlaced) {
-                        bombPlaced = true;
-                        onBombPlaceListener.onBombPlace(this);
+            } else if (controls == WSAD) {
+                switch (keyCode) {
+                    case W -> {
+                        setAutoCycleRow(2);
+                        setMotion(getWalkSpeed(), Direction.UP);
+                    }
+                    case S -> {
+                        setAutoCycleRow(0);
+                        setMotion(getWalkSpeed(), Direction.DOWN);
+                    }
+                    case A -> {
+                        setAutoCycleRow(3);
+                        setMotion(getWalkSpeed(), Direction.LEFT);
+                    }
+                    case D -> {
+                        setAutoCycleRow(1);
+                        setMotion(getWalkSpeed(), Direction.RIGHT);
+                    }
+                    case SPACE -> {
+                        if (onBombPlaceListener != null && !bombPlaced) {
+                            bombPlaced = true;
+                            onBombPlaceListener.onBombPlace(this);
+                        }
                     }
                 }
             }
@@ -162,15 +193,15 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         this.onBombPlaceListener = listener;
     }
 
-    public interface OnBombPlaceListener {
-        void onBombPlace(Player player);
-    }
-
     public String getIconPath() {
         return imagePathIcon;
     }
 
     public ArrayList<AbstractPowerUp> getPowerUps() {
         return powerUps;
+    }
+
+    public interface OnBombPlaceListener {
+        void onBombPlace(Player player);
     }
 }

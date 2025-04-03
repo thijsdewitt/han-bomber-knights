@@ -2,7 +2,7 @@ package nl.thijsdewitt.han_bomber_knights.entities.HUD;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
 
 import java.util.ArrayList;

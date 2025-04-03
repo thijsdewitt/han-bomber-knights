@@ -5,13 +5,13 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.media.SoundClip;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
 import java.util.List;
 
 public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
 
-    protected AbstractPowerUp(String resource, Coordinate2D initialLocation) {
+    public AbstractPowerUp(String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation);
         if (getShowInHud()) {
             // TODO: Add to HUD
