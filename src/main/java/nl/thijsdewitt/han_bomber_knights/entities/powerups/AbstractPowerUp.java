@@ -5,7 +5,7 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.media.SoundClip;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
 import java.util.List;
 

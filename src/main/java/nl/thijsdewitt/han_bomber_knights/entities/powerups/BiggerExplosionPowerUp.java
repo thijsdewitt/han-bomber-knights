@@ -1,7 +1,7 @@
 package nl.thijsdewitt.han_bomber_knights.entities.powerups;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class BiggerExplosionPowerUp extends AbstractPowerUp {

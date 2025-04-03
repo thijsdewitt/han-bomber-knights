@@ -15,34 +15,22 @@ import java.io.InputStream;
 
 import static nl.thijsdewitt.han_bomber_knights.BomberKnights.SCREEN_SIZE;
 
-public class WorldGenTileMap extends TileMap {
-    private final Class<? extends YaegerEntity> tileMapClass;
+public class CrateTileMap extends TileMap {
 
-    public WorldGenTileMap(Class<? extends YaegerEntity> tileMapClass) {
+    public CrateTileMap() {
         super(new Coordinate2D(SCREEN_SIZE.width() / 2, SCREEN_SIZE.height() / 2), new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32));
-        this.tileMapClass = tileMapClass;
+
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
     }
 
     @Override
     public void setupEntities() {
-        addEntity(-1, UnderTheCastleTile.class, 5);
-        addEntity(0xFF000000, UnderTheCastleWall.class, 7);
-        addEntity(0xFF080808, UnderTheCastleWall.class, 8);
-        addEntity(0xFF101010, UnderTheCastleWall.class, 9);
-        addEntity(0xFF181818, UnderTheCastleWall.class, 17);
-        addEntity(0xFF202020, UnderTheCastleWall.class, 15);
-        addEntity(0xFF282828, UnderTheCastleWall.class, 19);
-        addEntity(0xFF303030, UnderTheCastleWall.class, 27);
-        addEntity(0xFF383838, UnderTheCastleWall.class, 28);
-        addEntity(0xFF404040, UnderTheCastleWall.class, 29);
-        addEntity(0xFFEEEEEE, UnderTheCastleTile.class, 18);
-        addEntity(0xFFDDDDDD, UnderTheCastleTile.class, 25);
+        addEntity(0xFFA96C12, Crate.class);
     }
 
     @Override
     public int[][] defineMap() {
-        Image image = loadResource("sprites/world_map.png");
+        Image image = loadResource("sprites/crate_map.png");
         return image.getPixels2D();
     }
 

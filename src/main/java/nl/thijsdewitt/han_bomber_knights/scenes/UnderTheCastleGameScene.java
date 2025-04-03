@@ -4,7 +4,9 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.scenes.TileMapContainer;
 import javafx.scene.paint.Color;
-import nl.thijsdewitt.han_bomber_knights.entities.Player;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Controls;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
+import nl.thijsdewitt.han_bomber_knights.entities.map.CrateTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 
@@ -16,12 +18,13 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
 
     @Override
     public void setupEntities() {
-        Player player1 = new Player(new Coordinate2D(290, 82));
+        Player player1 = new Player(new Coordinate2D(290, 82), Controls.WSAD);
         addEntity(player1);
     }
 
     @Override
     public void setupTileMaps() {
         addTileMap(new WorldGenTileMap(UnderTheCastleTile.class));
+        addTileMap(new CrateTileMap());
     }
 }
