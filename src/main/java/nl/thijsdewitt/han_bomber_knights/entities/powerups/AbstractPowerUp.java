@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
 
-    protected AbstractPowerUp(String resource, Coordinate2D initialLocation) {
+    public AbstractPowerUp(String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation);
         if (getShowInHud()) {
             // TODO: Add to HUD
