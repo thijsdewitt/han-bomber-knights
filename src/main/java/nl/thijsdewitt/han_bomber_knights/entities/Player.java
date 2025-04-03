@@ -7,26 +7,30 @@ import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
+import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleWall;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
+import nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 public class Player extends DynamicSpriteEntity implements Collider, KeyListener {
     private static final int MAX_HEALTH = 3;
-
+    private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private final ArrayList<AbstractPowerUp> powerUps = new ArrayList<>();
     boolean bombPlaced = false;
     private int health = 3;
     private int explosionRadius = 3;
     private int walkSpeed = 3;
     private OnBombPlaceListener onBombPlaceListener;
+    private HUD hud;
 
     public Player(Coordinate2D location) {
         super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
+        this.hud = hud;
     }
 
     public void handleCollision(UnderTheCastleWall tile) {
@@ -83,6 +87,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     public void addPowerUpToHud(AbstractPowerUp powerUp) {
         powerUps.add(powerUp);
+        hud.gainPowerUp(powerUp);
     }
 
     public int getHealth() {
@@ -92,6 +97,8 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     public void setHealth(int health) {
         if (health > MAX_HEALTH) {
             health = MAX_HEALTH;
+        } else if(health <= 0){
+            health = 0;
         }
         this.health = health;
     }
@@ -111,7 +118,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
             setAutoCycleRow((getAutoCycleRow() % 4) + 4);
             return;
         }
-
+        System.out.println(health);
         pressedKeys.forEach(keyCode -> {
             switch (keyCode) {
                 case UP -> {
@@ -158,5 +165,13 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     public interface OnBombPlaceListener {
         void onBombPlace(Player player);
+    }
+
+    public String getIconPath() {
+        return imagePathIcon;
+    }
+
+    public ArrayList<AbstractPowerUp> getPowerUps() {
+        return powerUps;
     }
 }
