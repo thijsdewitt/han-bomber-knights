@@ -7,22 +7,21 @@ import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
-import nl.thijsdewitt.han_bomber_knights.entities.map.CollidedTile;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
-import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleWall;
+import nl.thijsdewitt.han_bomber_knights.entities.map.CollidedTile;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
-import nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp;
 
 import java.util.ArrayList;
 import java.util.Set;
 
-import static nl.thijsdewitt.han_bomber_knights.entities.player.Controls.*;
+import static nl.thijsdewitt.han_bomber_knights.entities.player.Controls.ARROWS;
+import static nl.thijsdewitt.han_bomber_knights.entities.player.Controls.WSAD;
 
 public class Player extends DynamicSpriteEntity implements Collider, KeyListener {
     private static final int MAX_HEALTH = 3;
-    private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private final ArrayList<AbstractPowerUp> powerUps = new ArrayList<>();
     boolean bombPlaced = false;
+    private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private int health = 3;
     private int explosionRadius = 3;
     private int walkSpeed = 3;
@@ -30,7 +29,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private HUD hud;
     private Controls controls;
 
-    public Player(Coordinate2D location, HUD hud) {
+    public Player(Coordinate2D location, HUD hud, Controls controls) {
         super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
@@ -102,7 +101,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     public void setHealth(int health) {
         if (health > MAX_HEALTH) {
             health = MAX_HEALTH;
-        } else if(health <= 0){
+        } else if (health <= 0) {
             health = 0;
         }
         this.health = health;
@@ -124,7 +123,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
             return;
         }
         pressedKeys.forEach(keyCode -> {
-            if(controls == ARROWS) {
+            if (controls == ARROWS) {
                 switch (keyCode) {
                     case UP -> {
                         setAutoCycleRow(2);
@@ -141,6 +140,12 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                     case RIGHT -> {
                         setAutoCycleRow(1);
                         setMotion(getWalkSpeed(), Direction.RIGHT);
+                    }
+                    case SPACE -> {
+                        if (onBombPlaceListener != null && !bombPlaced) {
+                            bombPlaced = true;
+                            onBombPlaceListener.onBombPlace(this);
+                        }
                     }
                 }
             } else if (controls == WSAD) {
@@ -161,11 +166,11 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                         setAutoCycleRow(1);
                         setMotion(getWalkSpeed(), Direction.RIGHT);
                     }
-                }
-                case SPACE -> {
-                    if (onBombPlaceListener != null && !bombPlaced) {
-                        bombPlaced = true;
-                        onBombPlaceListener.onBombPlace(this);
+                    case SPACE -> {
+                        if (onBombPlaceListener != null && !bombPlaced) {
+                            bombPlaced = true;
+                            onBombPlaceListener.onBombPlace(this);
+                        }
                     }
                 }
             }
@@ -188,15 +193,15 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         this.onBombPlaceListener = listener;
     }
 
-    public interface OnBombPlaceListener {
-        void onBombPlace(Player player);
-    }
-
     public String getIconPath() {
         return imagePathIcon;
     }
 
     public ArrayList<AbstractPowerUp> getPowerUps() {
         return powerUps;
+    }
+
+    public interface OnBombPlaceListener {
+        void onBombPlace(Player player);
     }
 }
