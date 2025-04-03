@@ -24,9 +24,9 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private int explosionRadius = 3;
     private int walkSpeed = 3;
     private OnBombPlaceListener onBombPlaceListener;
-    private HUD hud;
+    private final HUD hud;
 
-    public Player(Coordinate2D location) {
+    public Player(Coordinate2D location, HUD hud) {
         super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
