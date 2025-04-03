@@ -118,7 +118,6 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
             setAutoCycleRow((getAutoCycleRow() % 4) + 4);
             return;
         }
-        System.out.println(health);
         pressedKeys.forEach(keyCode -> {
             switch (keyCode) {
                 case UP -> {

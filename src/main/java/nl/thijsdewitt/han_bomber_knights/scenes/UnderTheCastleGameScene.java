@@ -30,8 +30,6 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
             Coordinate2D bombLocation = getBombLocation(player);
             Bomb bomb = new Bomb(bombLocation, player.getExplosionRadius());
             bomb.onExploded(() -> {
-                // Handle explosion logic here
-                System.out.println("Bomb exploded!");
                 player.resetBombPlaced();
                 addEntity(new ExplosionEntity(bombLocation, 1));
             });
