@@ -16,10 +16,14 @@ import java.io.InputStream;
 import static nl.thijsdewitt.han_bomber_knights.BomberKnights.SCREEN_SIZE;
 
 public class WorldGenTileMap extends TileMap {
+    public static final Coordinate2D LOCATION = new Coordinate2D(SCREEN_SIZE.width() / 2, SCREEN_SIZE.height() / 2);
+    public static final Size SIZE = new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32);
     private final Class<? extends YaegerEntity> tileMapClass;
+    private int rows;
+    private int columns;
 
     public WorldGenTileMap(Class<? extends YaegerEntity> tileMapClass) {
-        super(new Coordinate2D(SCREEN_SIZE.width() / 2, SCREEN_SIZE.height() / 2), new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32));
+        super(LOCATION, SIZE);
         this.tileMapClass = tileMapClass;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
     }
@@ -43,6 +47,8 @@ public class WorldGenTileMap extends TileMap {
     @Override
     public int[][] defineMap() {
         Image image = loadResource("sprites/test.png");
+        rows = image.height();
+        columns = image.width();
         return image.getPixels2D();
     }
 
@@ -81,5 +87,13 @@ public class WorldGenTileMap extends TileMap {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
     }
 }
