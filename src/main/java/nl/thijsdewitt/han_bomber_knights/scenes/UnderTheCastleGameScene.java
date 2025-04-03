@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.scenes.TileMapContainer;
 import javafx.scene.paint.Color;
 import nl.thijsdewitt.han_bomber_knights.entities.Player;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Bomb;
+import nl.thijsdewitt.han_bomber_knights.entities.bomb.ExplosionEntity;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 
@@ -29,6 +30,7 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
                 // Handle explosion logic here
                 System.out.println("Bomb exploded!");
                 player.resetBombPlaced();
+                addEntity(new ExplosionEntity(bombLocation, 1));
             });
             addEntity(bomb);
         });

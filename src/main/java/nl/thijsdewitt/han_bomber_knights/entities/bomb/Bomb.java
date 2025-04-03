@@ -14,8 +14,8 @@ public class Bomb extends DynamicCompositeEntity implements TimerContainer {
 
     public Bomb(Coordinate2D initialLocation, int explosionRadius) {
         super(initialLocation);
-        setAnchorPoint(AnchorPoint.CENTER_CENTER);
         this.explosionRadius = explosionRadius;
+        setAnchorPoint(AnchorPoint.CENTER_CENTER);
 
         this.bombEntity = new BombEntity();
     }
@@ -53,7 +53,7 @@ public class Bomb extends DynamicCompositeEntity implements TimerContainer {
             bombEntity.explode();
             parent.onExplodedListener.onExploded();
             // TODO: add explosion entity
-            parent.remove();
+            this.remove();
         }
     }
 }
