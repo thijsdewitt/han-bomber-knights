@@ -5,6 +5,7 @@ import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class SpeedUpPowerUp extends AbstractPowerUp {
+    private String imagePath = "sprites/SpeedUp.png";
     protected SpeedUpPowerUp(String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation);
     }
@@ -14,5 +15,10 @@ public class SpeedUpPowerUp extends AbstractPowerUp {
         player.addPowerUpToHud(this);
         playSound();
         player.setSpeed(player.getSpeed() + 1);
+    }
+
+    @Override
+    public String getImagePath() {
+        return imagePath;
     }
 }
