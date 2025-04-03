@@ -22,14 +22,16 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private static final int MAX_HEALTH = 3;
     private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private final ArrayList<AbstractPowerUp> powerUps = new ArrayList<>();
+    boolean bombPlaced = false;
     private int health = 3;
     private int explosionRadius = 3;
     private int walkSpeed = 3;
+    private OnBombPlaceListener onBombPlaceListener;
     private HUD hud;
     private Controls controls;
 
-    public Player(Coordinate2D location, HUD hud, Controls controls) {
-        super("sprites/blue_knight_16x17.png", location, new Size(56), 8, 8);
+    public Player(Coordinate2D location, HUD hud) {
+        super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
         this.hud = hud;
@@ -42,24 +44,24 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         double centerY = this.getBoundingBox().getCenterY();
 
         switch (direction) {
-            case DOWN -> {
-                setAnchorLocationY(tile.getBoundingBox().getMinY() - getHeight() - 1);
-                nullifySpeedInDirection(Direction.DOWN);
-                adjustHorizontalPosition(tile, centerX);
-            }
-            case RIGHT -> {
-                setAnchorLocationX(tile.getBoundingBox().getMinX() - getWidth() - 1);
-                nullifySpeedInDirection(Direction.RIGHT);
-                adjustVerticalPosition(tile, centerY);
-            }
             case UP -> {
                 setAnchorLocationY(tile.getBoundingBox().getMaxY() + 1);
                 nullifySpeedInDirection(Direction.UP);
                 adjustHorizontalPosition(tile, centerX);
             }
+            case DOWN -> {
+                setAnchorLocationY(tile.getBoundingBox().getMinY() - getHeight() - 1);
+                nullifySpeedInDirection(Direction.DOWN);
+                adjustHorizontalPosition(tile, centerX);
+            }
             case LEFT -> {
                 setAnchorLocationX(tile.getBoundingBox().getMaxX() + 1);
                 nullifySpeedInDirection(Direction.LEFT);
+                adjustVerticalPosition(tile, centerY);
+            }
+            case RIGHT -> {
+                setAnchorLocationX(tile.getBoundingBox().getMinX() - getWidth() - 1);
+                nullifySpeedInDirection(Direction.RIGHT);
                 adjustVerticalPosition(tile, centerY);
             }
         }
@@ -121,7 +123,6 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
             setAutoCycleRow((getAutoCycleRow() % 4) + 4);
             return;
         }
-        System.out.println(health);
         pressedKeys.forEach(keyCode -> {
             if(controls == ARROWS) {
                 switch (keyCode) {
@@ -161,8 +162,18 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                         setMotion(getWalkSpeed(), Direction.RIGHT);
                     }
                 }
+                case SPACE -> {
+                    if (onBombPlaceListener != null && !bombPlaced) {
+                        bombPlaced = true;
+                        onBombPlaceListener.onBombPlace(this);
+                    }
+                }
             }
         });
+    }
+
+    public void resetBombPlaced() {
+        this.bombPlaced = false;
     }
 
     public int getWalkSpeed() {
@@ -171,6 +182,14 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     public void setWalkSpeed(int walkSpeed) {
         this.walkSpeed = walkSpeed;
+    }
+
+    public void onBombPlace(OnBombPlaceListener listener) {
+        this.onBombPlaceListener = listener;
+    }
+
+    public interface OnBombPlaceListener {
+        void onBombPlace(Player player);
     }
 
     public String getIconPath() {
