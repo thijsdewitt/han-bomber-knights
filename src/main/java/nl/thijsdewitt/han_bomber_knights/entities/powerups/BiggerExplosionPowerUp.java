@@ -14,7 +14,7 @@ public class BiggerExplosionPowerUp extends AbstractPowerUp {
     @Override
     public void activate(@NotNull Player player) {
         player.addPowerUpToHud(this);
-        // TODO: Play sound
+        playSound();
         player.setExplosionRadius(player.getExplosionRadius() + 1);
     }
 

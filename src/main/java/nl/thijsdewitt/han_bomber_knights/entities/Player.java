@@ -33,25 +33,48 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     public void handleCollision(UnderTheCastleWall tile) {
         Direction direction = Direction.valueOf(getDirection());
+        double centerX = this.getBoundingBox().getCenterX();
+        double centerY = this.getBoundingBox().getCenterY();
+
         switch (direction) {
-            case Direction.DOWN -> {
+            case DOWN -> {
                 setAnchorLocationY(tile.getBoundingBox().getMinY() - getHeight() - 1);
                 nullifySpeedInDirection(Direction.DOWN);
+                adjustHorizontalPosition(tile, centerX);
             }
-            case Direction.RIGHT -> {
+            case RIGHT -> {
                 setAnchorLocationX(tile.getBoundingBox().getMinX() - getWidth() - 1);
                 nullifySpeedInDirection(Direction.RIGHT);
-
+                adjustVerticalPosition(tile, centerY);
             }
-            case Direction.UP -> {
+            case UP -> {
                 setAnchorLocationY(tile.getBoundingBox().getMaxY() + 1);
                 nullifySpeedInDirection(Direction.UP);
+                adjustHorizontalPosition(tile, centerX);
             }
-            case Direction.LEFT -> {
+            case LEFT -> {
                 setAnchorLocationX(tile.getBoundingBox().getMaxX() + 1);
                 nullifySpeedInDirection(Direction.LEFT);
-
+                adjustVerticalPosition(tile, centerY);
             }
+        }
+    }
+
+    private void adjustHorizontalPosition(UnderTheCastleWall tile, double centerX) {
+        if (tile.getBoundingBox().getMinX() >= centerX) {
+            setAnchorLocationX(getAnchorLocation().getX() - 1);
+        }
+        if (tile.getBoundingBox().getMaxX() <= centerX) {
+            setAnchorLocationX(getAnchorLocation().getX() + 1);
+        }
+    }
+
+    private void adjustVerticalPosition(UnderTheCastleWall tile, double centerY) {
+        if (tile.getBoundingBox().getMinY() >= centerY) {
+            setAnchorLocationY(getAnchorLocation().getY() - 1);
+        }
+        if (tile.getBoundingBox().getMaxY() <= centerY) {
+            setAnchorLocationY(getAnchorLocation().getY() + 1);
         }
     }
 
@@ -90,7 +113,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
         if (pressedKeys.isEmpty()) {
             setSpeed(0);
-            setAutoCycleRow(getAutoCycleRow() + 4);
+            setAutoCycleRow((getAutoCycleRow() % 4) + 4);
             return;
         }
         System.out.println(health);
