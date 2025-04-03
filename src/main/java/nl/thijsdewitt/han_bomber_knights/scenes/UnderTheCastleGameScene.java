@@ -13,6 +13,8 @@ import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp;
 
+import java.util.ArrayList;
+
 public class UnderTheCastleGameScene extends DynamicScene implements TileMapContainer {
     private final WorldGenTileMap tileMap = new WorldGenTileMap(UnderTheCastleTile.class);
 
@@ -31,7 +33,12 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
             Bomb bomb = new Bomb(bombLocation, player.getExplosionRadius());
             bomb.onExploded(() -> {
                 player.resetBombPlaced();
-                addEntity(new ExplosionEntity(bombLocation, 1));
+
+                Size mapSize = WorldGenTileMap.SIZE;
+                double tileSize = mapSize.width() / tileMap.getColumns();
+
+                ArrayList<ExplosionEntity> explosions = bomb.getExplosionEntities(bombLocation, tileSize);
+                explosions.forEach(this::addEntity);
             });
             addEntity(bomb);
         });

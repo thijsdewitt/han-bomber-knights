@@ -6,6 +6,9 @@ import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.DynamicCompositeEntity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Bomb extends DynamicCompositeEntity implements TimerContainer {
     private final int explosionRadius;
 
@@ -32,6 +35,18 @@ public class Bomb extends DynamicCompositeEntity implements TimerContainer {
 
     public void onExploded(OnExplodedListener listener) {
         this.onExplodedListener = listener;
+    }
+
+    public ArrayList<ExplosionEntity> getExplosionEntities(Coordinate2D location, double tileSize) {
+        ArrayList<ExplosionEntity> explosions = new ArrayList<>();
+
+        explosions.add(new ExplosionEntity(location, 1));
+        explosions.add(new ExplosionEntity(location.add(new Coordinate2D(0, tileSize)), 2));
+        explosions.add(new ExplosionEntity(location.add(new Coordinate2D(0, -tileSize)), 2));
+        explosions.add(new ExplosionEntity(location.add(new Coordinate2D(tileSize, 0)), 3));
+        explosions.add(new ExplosionEntity(location.add(new Coordinate2D(-tileSize, 0)), 3));
+
+        return explosions;
     }
 
     public interface OnExplodedListener {
