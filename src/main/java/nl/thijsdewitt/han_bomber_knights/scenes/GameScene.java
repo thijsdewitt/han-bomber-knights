@@ -36,8 +36,12 @@ public class GameScene extends DynamicScene implements TileMapContainer {
         HUD player2HUD = new HUD(new Coordinate2D(0, 300), "sprites/hud/GreenKnightIcon.png");
         player2 = new Player("sprites/player/green_knight_16x17.png", player2HUD, Controls.ARROWS);
 
-        placeBomb(player1);
-        placeBomb(player2);
+        player1.onBombPlace((player) -> {
+            placeBomb(player);
+        });
+        player2.onBombPlace((player) -> {
+            placeBomb(player);
+        });
 
         player1.dies(() -> {
             app.setActiveScene(3);
@@ -53,18 +57,16 @@ public class GameScene extends DynamicScene implements TileMapContainer {
         addEntity(player2);
     }
 
-    private void placeBomb(Player player1) {
-        player1.onBombPlace((player) -> {
-            Coordinate2D bombLocation = getBombLocation(player);
-            BombEntity bomb = new BombEntity(bombLocation, player.getExplosionRadius());
-            bomb.onExploded(() -> {
-                player.resetBombPlaced();
+    private void placeBomb(Player player) {
+        Coordinate2D bombLocation = getBombLocation(player);
+        BombEntity bomb = new BombEntity(bombLocation, player.getExplosionRadius());
+        bomb.onExploded(() -> {
+            player.resetBombPlaced();
 
-                Explosion explosion = bomb.getExplosion();
-                addEntity(explosion);
-            });
-            addEntity(bomb);
+            Explosion explosion = bomb.getExplosion();
+            addEntity(explosion);
         });
+        addEntity(bomb);
     }
 
     private Coordinate2D getBombLocation(Player player) {
