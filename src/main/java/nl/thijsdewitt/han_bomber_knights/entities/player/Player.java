@@ -28,6 +28,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private int walkSpeed = 3;
     private OnBombPlaceListener onBombPlaceListener;
     private Explosion previouslyHit = null;
+    private OnPlayerDieListener onPlayerDieListener;
 
     public Player(String imagePath, HUD hud, Controls controls) {
         super(imagePath, new Coordinate2D(), new Size(48, 51), 8, 8);
@@ -102,6 +103,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     private void die() {
         remove();
+        onPlayerDieListener.onPlayerDie();
     }
 
     public int getExplosionRadius() {
@@ -205,6 +207,14 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
         previouslyHit = explosion;
         setHealth(getHealth() - 1);
+    }
+
+    public void dies(OnPlayerDieListener listener) {
+        this.onPlayerDieListener = listener;
+    }
+
+    public interface OnPlayerDieListener {
+        void onPlayerDie();
     }
 
     public interface OnBombPlaceListener {

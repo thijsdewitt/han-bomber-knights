@@ -16,11 +16,13 @@ public class TextButton extends CompositeEntity implements MouseButtonPressedLis
     private OnClickCallback onClickCallback;
 
     public TextButton(Coordinate2D initialLocation, String text) {
-        super(initialLocation);
-        setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        this(initialLocation, text, 90);
+    }
 
+    public TextButton(Coordinate2D initialLocation, String text, int width) {
+        super(initialLocation);
         textButtonTitle = new TextButtonTitle(new Coordinate2D(0, 0), text);
-        textButtonBox = new TextButtonBox(new Coordinate2D(0, 0), 90, 40);
+        textButtonBox = new TextButtonBox(new Coordinate2D(0, 0), width, 40);
     }
 
     @Override

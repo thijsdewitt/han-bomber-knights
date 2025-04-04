@@ -20,9 +20,10 @@ public class BomberKnights extends YaegerGame {
     @Override
     public void setupScenes() {
         addScene(0, new StartScene(this));
-        addScene(1, new GameScene());
-        addScene(2, new WinScene());
+        addScene(1, new GameScene(this));
+        addScene(2, new Player1WinScreen(this));
+        addScene(3, new Player2WinScreen(this));
 
-        setActiveScene(0);
+        setActiveScene(3);
     }
 }
