@@ -1,6 +1,29 @@
 @startuml
 
 skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+class DynamicSpriteEntity #lightblue
+class DynamicCompositeEntity #lightblue
+class DynamicRectangleEntity #lightblue
+class CompositeEntity #lightblue
+class RectangleEntity #lightblue
+class TextEntity #lightblue
+class SpriteEntity #lightblue
+class TileMap #lightblue
+class DynamicScene #lightblue
+class StaticScene #lightblue
+
+interface TimerContainer #lightblue
+interface Collided #lightblue
+interface Collider #lightblue
+interface UpdateExposer #lightblue
+interface MouseButtonPressedListener #lightblue
+interface MouseEnterListener #lightblue
+interface MouseExitListener #lightblue
+interface KeyListener #lightblue
+interface TileMapContainer #lightblue
+
 package entities {
     package powerups {
         class AbstractPowerUp {
@@ -41,6 +64,8 @@ package entities {
            sprite: ExplosionSprite
            parent: ExplosionBox
         }
+
+        class ExplosionSprite
     }
 
     package hud {
@@ -104,7 +129,6 @@ package entities {
           # setupEntities(): void
            size: Size
         }
-        class ExplosionSprite
         entity Image << record >> {
           + width(): int
           + height(): int
@@ -230,4 +254,53 @@ WorldGenTileMap          -[#595959,dashed]->  Path
 WorldGenTileMap          -[#595959,dashed]->  TileConfig              : "«create»"
 WorldGenTileMap          -[#595959,dashed]->  UnbreakableWall
 WorldGenTileMap          -[#595959,dashed]->  WorldGenTileMap
+
+BombEntity ..|> TimerContainer
+BombEntity --|> DynamicSpriteEntity
+Explosion ..|> TimerContainer
+Explosion --|> DynamicCompositeEntity
+ExplosionBox --|> DynamicRectangleEntity
+ExplosionBox ..|> Collided
+ExplosionBox ..|> UpdateExposer
+ExplosionSprite --|> DynamicSpriteEntity
+
+TextButton --|> CompositeEntity
+TextButton ..|> MouseButtonPressedListener
+TextButton ..|> MouseEnterListener
+TextButton ..|> MouseExitListener
+
+TextButtonBox --|> RectangleEntity
+TextButtonTitle --|> TextEntity
+
+HUD --|> CompositeEntity
+PlayerIcon --|> SpriteEntity
+SmallIcon --|> SpriteEntity
+Text --|> TextEntity
+
+Crate --|> SpriteEntity
+Crate ..|> Collider
+
+CrateEntity --|> CompositeEntity
+
+CollidedTile --|> Collided
+OverlayTileMap --|> TileMap
+
+PlayerLocation --|> SpriteEntity
+Tile --|> SpriteEntity
+Tile ..|> Collider
+
+WorldGenTileMap --|> TileMap
+
+Player --|> DynamicSpriteEntity
+Player ..|> Collider
+Player ..|> KeyListener
+
+AbstractPowerUp --|> SpriteEntity
+AbstractPowerUp ..|> Collided
+
+StartScene --|> StaticScene
+GameScene --|> DynamicScene
+GameScene ..|> TileMapContainer
+WinScene --|> StaticScene
+
 @enduml
