@@ -24,6 +24,6 @@ public class BomberKnights extends YaegerGame {
         addScene(2, new Player1WinScreen(this));
         addScene(3, new Player2WinScreen(this));
 
-        setActiveScene(3);
+        setActiveScene(0);
     }
 }
