@@ -3,17 +3,15 @@ package nl.thijsdewitt.han_bomber_knights.entities.map.crate;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
-import javafx.scene.input.MouseButton;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.BiggerExplosionPowerUp;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp;
 
 public class CrateEntity extends CompositeEntity {
+    private final Size size;
     private Crate crate;
     private AbstractPowerUp powerUp;
-    private final Size size;
 
     public CrateEntity(Coordinate2D location, Size size) {
         super(location);

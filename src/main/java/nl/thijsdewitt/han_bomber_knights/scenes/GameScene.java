@@ -9,13 +9,12 @@ import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.BombEntity;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Explosion;
 import nl.thijsdewitt.han_bomber_knights.entities.map.OverlayTileMap;
-import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Controls;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
-public class UnderTheCastleGameScene extends DynamicScene implements TileMapContainer {
-    private final WorldGenTileMap tileMap = new WorldGenTileMap(UnderTheCastleTile.class);
+public class GameScene extends DynamicScene implements TileMapContainer {
+    private final WorldGenTileMap tileMap = new WorldGenTileMap();
     Player player1;
     Player player2;
 

@@ -3,7 +3,6 @@ package nl.thijsdewitt.han_bomber_knights.entities.map;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.TileMap;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,13 +17,11 @@ import static nl.thijsdewitt.han_bomber_knights.BomberKnights.SCREEN_SIZE;
 public class WorldGenTileMap extends TileMap {
     public static final Coordinate2D LOCATION = new Coordinate2D(SCREEN_SIZE.width() / 2, SCREEN_SIZE.height() / 2);
     public static final Size SIZE = new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32);
-    private final Class<? extends YaegerEntity> tileMapClass;
     private int rows;
     private int columns;
 
-    public WorldGenTileMap(Class<? extends YaegerEntity> tileMapClass) {
+    public WorldGenTileMap() {
         super(LOCATION, SIZE);
-        this.tileMapClass = tileMapClass;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
     }
 

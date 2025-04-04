@@ -20,7 +20,7 @@ public class StartScene extends StaticScene {
     @Override
     public void setupEntities() {
         TextButton startKnop = new TextButton(new Coordinate2D(getWidth() / 2, getHeight() * 0.7), "Start");
-        startKnop.onClick(() -> app.setActiveScene(3));
+        startKnop.onClick(() -> app.setActiveScene(1));
         addEntity(startKnop);
 
         TextButton exitKnop = new TextButton(new Coordinate2D(getWidth() / 2, getHeight() * 0.8), "Exit");
