@@ -40,11 +40,11 @@ public class GameScene extends DynamicScene implements TileMapContainer {
         placeBomb(player2);
 
         player1.dies(() -> {
-            app.setActiveScene(2);
+            app.setActiveScene(3);
         });
 
         player2.dies(() -> {
-            app.setActiveScene(3);
+            app.setActiveScene(2);
         });
 
         addEntity(player1HUD);
