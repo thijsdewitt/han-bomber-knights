@@ -141,7 +141,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                         setAutoCycleRow(1);
                         setMotion(getWalkSpeed(), Direction.RIGHT);
                     }
-                    case SPACE -> {
+                    case SHIFT -> {
                         if (onBombPlaceListener != null && !bombPlaced) {
                             bombPlaced = true;
                             onBombPlaceListener.onBombPlace(this);

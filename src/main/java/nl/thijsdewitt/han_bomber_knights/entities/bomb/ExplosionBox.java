@@ -7,8 +7,9 @@ import com.github.hanyaeger.api.UpdateExposer;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
-import nl.thijsdewitt.han_bomber_knights.entities.map.Crate;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnbreakableWall;
+import nl.thijsdewitt.han_bomber_knights.entities.map.crate.Crate;
+import nl.thijsdewitt.han_bomber_knights.entities.map.crate.CrateEntity;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ExplosionBox extends DynamicRectangleEntity implements Collided, Up
             }
 
             if (collider instanceof Crate crate) {
-                crate.remove();
+                crate.destroy();
             }
         }
 
