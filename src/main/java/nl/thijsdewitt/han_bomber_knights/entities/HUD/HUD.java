@@ -8,12 +8,6 @@ public class HUD extends CompositeEntity {
     private final Coordinate2D initialLocation;
     private final String iconPath;
 
-    private final SmallIcon[] powerUps = {
-            new SmallIcon("sprites/SpeedUp.png"),
-            new SmallIcon("sprites/HealthUp.png"),
-            new SmallIcon("sprites/ExplosionRadiusUp.png"),
-    };
-
     private SmallIcon[] healthIcons;
 
     public HUD(Coordinate2D initialLocation, String iconPath) {
@@ -31,10 +25,6 @@ public class HUD extends CompositeEntity {
         Text health = new Text(new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY()), "Health: ");
         addEntity(health);
 
-        // add text power-ups
-        Text powerUps = new Text(new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 60), "PowerUps: ");
-        addEntity(powerUps);
-
         // add hearts
         for (int i = 0; i < healthIcons.length; i++) {
             var icon = healthIcons[i];
@@ -42,12 +32,6 @@ public class HUD extends CompositeEntity {
             icon.setAnchorLocation(location);
             addEntity(icon);
         }
-    }
-
-    public void gainPowerUp(AbstractPowerUp powerUp) {
-        Coordinate2D powerUpsLocation = new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 90);
-        SmallIcon powerUpIcon = new SmallIcon(powerUp.getIconPath(), powerUpsLocation);
-        addEntity(powerUpIcon);
     }
 
     public void setMaxHealth(int maxHealth) {

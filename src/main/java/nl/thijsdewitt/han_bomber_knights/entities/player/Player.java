@@ -86,15 +86,6 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         }
     }
 
-    public void handleCollision(AbstractPowerUp powerUp) {
-        powerUp.activate(this);
-        powerUp.remove();
-    }
-
-    public void addPowerUpToHud(AbstractPowerUp powerUp) {
-        hud.gainPowerUp(powerUp);
-    }
-
     public int getHealth() {
         return health;
     }

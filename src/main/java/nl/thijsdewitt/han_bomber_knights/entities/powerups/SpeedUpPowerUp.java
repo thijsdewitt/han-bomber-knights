@@ -6,20 +6,13 @@ import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class SpeedUpPowerUp extends AbstractPowerUp {
-    private String iconPath = "sprites/SpeedUp.png";
     public SpeedUpPowerUp(Size size) {
         super("sprites/SpeedUp.png", new Coordinate2D(), size);
     }
 
     @Override
     public void activate(@NotNull Player player) {
-        player.addPowerUpToHud(this);
         playSound();
         player.setWalkSpeed(player.getWalkSpeed() + 1);
-    }
-
-    @Override
-    public String getIconPath() {
-        return iconPath;
     }
 }

@@ -18,8 +18,6 @@ public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
 
     public abstract void activate(Player player);
 
-    public abstract String getIconPath();
-
     @Override
     public void onCollision(List<Collider> collidingObjects) {
         collidingObjects.forEach(collidingObject -> {
