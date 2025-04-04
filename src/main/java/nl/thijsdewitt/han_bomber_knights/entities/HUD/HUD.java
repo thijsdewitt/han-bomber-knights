@@ -83,7 +83,7 @@ public class HUD extends CompositeEntity {
 
     public void gainPowerUp(AbstractPowerUp powerUp) {
         PowerUpsLocation = new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 90);
-        SmallIcon powerUpIcon = new SmallIcon(powerUp.getImagePath(), PowerUpsLocation);
+        SmallIcon powerUpIcon = new SmallIcon(powerUp.getIconPath(), PowerUpsLocation);
         addEntity(powerUpIcon);
         PowerUpsLocation = new Coordinate2D(PowerUpsLocation.getX() + 35, PowerUpsLocation.getY() + 35);
     }

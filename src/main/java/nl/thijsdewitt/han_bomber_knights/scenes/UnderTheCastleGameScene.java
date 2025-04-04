@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.BombEntity;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Explosion;
-import nl.thijsdewitt.han_bomber_knights.entities.map.CrateTileMap;
+import nl.thijsdewitt.han_bomber_knights.entities.map.OverlayTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Controls;
@@ -16,6 +16,8 @@ import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
 public class UnderTheCastleGameScene extends DynamicScene implements TileMapContainer {
     private final WorldGenTileMap tileMap = new WorldGenTileMap(UnderTheCastleTile.class);
+    Player player1;
+    Player player2;
 
     @Override
     public void setupScene() {
@@ -25,8 +27,20 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
     @Override
     public void setupEntities() {
         HUD player1HUD = new HUD(new Coordinate2D(0, 0), 400, 400, "sprites/BlueKnightIcon.png");
-        Player player1 = new Player(new Coordinate2D(290, 82), player1HUD, Controls.WSAD);
+        player1 = new Player("sprites/blue_knight_16x17.png", player1HUD, Controls.WSAD);
+        HUD player2HUD = new HUD(new Coordinate2D(0, 300), 400, 400, "sprites/GreenKnightIcon.png");
+        player2 = new Player("sprites/green_knight_16x17.png", player2HUD, Controls.ARROWS);
 
+        placeBomb(player1);
+        placeBomb(player2);
+
+        addEntity(player1HUD);
+        addEntity(player1);
+        addEntity(player2HUD);
+        addEntity(player2);
+    }
+
+    private void placeBomb(Player player1) {
         player1.onBombPlace((player) -> {
             Coordinate2D bombLocation = getBombLocation(player);
             BombEntity bomb = new BombEntity(bombLocation, player.getExplosionRadius());
@@ -38,9 +52,6 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
             });
             addEntity(bomb);
         });
-
-        addEntity(player1HUD);
-        addEntity(player1);
     }
 
     private Coordinate2D getBombLocation(Player player) {
@@ -70,6 +81,6 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
     @Override
     public void setupTileMaps() {
         addTileMap(tileMap);
-        addTileMap(new CrateTileMap());
+        addTileMap(new OverlayTileMap(player1, player2));
     }
 }

@@ -1,13 +1,14 @@
 package nl.thijsdewitt.han_bomber_knights.entities.powerups;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class SpeedUpPowerUp extends AbstractPowerUp {
-    private String imagePath = "sprites/SpeedUp.png";
-    protected SpeedUpPowerUp(String resource, Coordinate2D initialLocation) {
-        super(resource, initialLocation);
+    private String iconPath = "sprites/SpeedUp.png";
+    public SpeedUpPowerUp(Size size) {
+        super("sprites/SpeedUp.png", new Coordinate2D(), size);
     }
 
     @Override
@@ -18,7 +19,7 @@ public class SpeedUpPowerUp extends AbstractPowerUp {
     }
 
     @Override
-    public String getImagePath() {
-        return imagePath;
+    public String getIconPath() {
+        return iconPath;
     }
 }

@@ -1,14 +1,15 @@
 package nl.thijsdewitt.han_bomber_knights.entities.powerups;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class BiggerExplosionPowerUp extends AbstractPowerUp {
-    private String imagePath = "sprites/ExplosionRadiusUp.png";
+    private String iconPath = "sprites/ExplosionRadiusUp.png";
 
-    protected BiggerExplosionPowerUp(String resource, Coordinate2D initialLocation) {
-        super(resource, initialLocation);
+    public BiggerExplosionPowerUp(Size size) {
+        super("sprites/ExplosionRadiusUp.png", new Coordinate2D(), size);
     }
 
     @Override
@@ -19,7 +20,8 @@ public class BiggerExplosionPowerUp extends AbstractPowerUp {
     }
 
     @Override
-    public String getImagePath() {
-        return imagePath;
+    public String getIconPath() {
+        return iconPath;
     }
+
 }
