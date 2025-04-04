@@ -30,18 +30,20 @@ public class WorldGenTileMap extends TileMap {
 
     @Override
     public void setupEntities() {
-        addEntity(-1, UnderTheCastleTile.class, 5);
-        addEntity(0xFF000000, UnderTheCastleWall.class, 7);
-        addEntity(0xFF080808, UnderTheCastleWall.class, 8);
-        addEntity(0xFF101010, UnderTheCastleWall.class, 9);
-        addEntity(0xFF181818, UnderTheCastleWall.class, 17);
-        addEntity(0xFF202020, UnderTheCastleWall.class, 15);
-        addEntity(0xFF282828, UnderTheCastleWall.class, 19);
-        addEntity(0xFF303030, UnderTheCastleWall.class, 27);
-        addEntity(0xFF383838, UnderTheCastleWall.class, 28);
-        addEntity(0xFF404040, UnderTheCastleWall.class, 29);
-        addEntity(0xFFEEEEEE, UnderTheCastleTile.class, 18);
-        addEntity(0xFFDDDDDD, UnderTheCastleTile.class, 25);
+        String spritesheet = "sprites/under_the_castle.png";
+
+        addEntity(-1, Path.class, new TileConfig(spritesheet, 5));
+        addEntity(0xFF000000, UnbreakableWall.class, new TileConfig(spritesheet, 7));
+        addEntity(0xFF080808, UnbreakableWall.class, new TileConfig(spritesheet, 8));
+        addEntity(0xFF101010, UnbreakableWall.class, new TileConfig(spritesheet, 9));
+        addEntity(0xFF181818, UnbreakableWall.class, new TileConfig(spritesheet, 17));
+        addEntity(0xFF202020, UnbreakableWall.class, new TileConfig(spritesheet, 15));
+        addEntity(0xFF282828, UnbreakableWall.class, new TileConfig(spritesheet, 19));
+        addEntity(0xFF303030, UnbreakableWall.class, new TileConfig(spritesheet, 27));
+        addEntity(0xFF383838, UnbreakableWall.class, new TileConfig(spritesheet, 28));
+        addEntity(0xFF404040, UnbreakableWall.class, new TileConfig(spritesheet, 29));
+        addEntity(0xFFEEEEEE, Path.class, new TileConfig(spritesheet, 18));
+        addEntity(0xFFDDDDDD, Path.class, new TileConfig(spritesheet, 25));
     }
 
     @Override
