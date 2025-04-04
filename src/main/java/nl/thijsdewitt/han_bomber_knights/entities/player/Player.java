@@ -139,6 +139,10 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                         setMotion(getWalkSpeed(), Direction.RIGHT);
                     }
                     case SHIFT -> {
+                        if (!isVisible()) {
+                            return;
+                        }
+
                         if (onBombPlaceListener != null && !bombPlaced) {
                             bombPlaced = true;
                             onBombPlaceListener.onBombPlace(this);
@@ -164,6 +168,10 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
                         setMotion(getWalkSpeed(), Direction.RIGHT);
                     }
                     case SPACE -> {
+                        if (!isVisible()) {
+                            return;
+                        }
+
                         if (onBombPlaceListener != null && !bombPlaced) {
                             bombPlaced = true;
                             onBombPlaceListener.onBombPlace(this);
