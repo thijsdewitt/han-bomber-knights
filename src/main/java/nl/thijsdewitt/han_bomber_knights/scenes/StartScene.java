@@ -14,7 +14,7 @@ public class StartScene extends StaticScene {
 
     @Override
     public void setupScene() {
-
+        setBackgroundImage("sprites/start_background.png");
     }
 
     @Override

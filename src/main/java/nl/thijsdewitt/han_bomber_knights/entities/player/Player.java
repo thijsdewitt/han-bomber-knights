@@ -8,6 +8,8 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
+import nl.thijsdewitt.han_bomber_knights.entities.bomb.Explosion;
+import nl.thijsdewitt.han_bomber_knights.entities.bomb.ExplosionBox;
 import nl.thijsdewitt.han_bomber_knights.entities.map.CollidedTile;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
 
@@ -28,6 +30,7 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private OnBombPlaceListener onBombPlaceListener;
     private HUD hud;
     private Controls controls;
+    private Explosion previouslyHit = null;
 
     public Player(String imagePath, HUD hud, Controls controls) {
         super(imagePath, new Coordinate2D(), new Size(48, 51), 8, 8);
@@ -35,6 +38,8 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         setAutoCycleRow(4);
         this.hud = hud;
         this.controls = controls;
+
+        hud.setMaxHealth(MAX_HEALTH);
     }
 
     public void handleCollision(CollidedTile tile) {
@@ -102,9 +107,14 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
         if (health > MAX_HEALTH) {
             health = MAX_HEALTH;
         } else if (health <= 0) {
-            health = 0;
+            die();
         }
         this.health = health;
+        hud.setHealth(health);
+    }
+
+    private void die() {
+        remove();
     }
 
     public int getExplosionRadius() {
@@ -199,6 +209,15 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     public ArrayList<AbstractPowerUp> getPowerUps() {
         return powerUps;
+    }
+
+    public void hit(Explosion explosion) {
+        if (previouslyHit == explosion) {
+            return;
+        }
+
+        previouslyHit = explosion;
+        setHealth(getHealth() - 1);
     }
 
     public interface OnBombPlaceListener {

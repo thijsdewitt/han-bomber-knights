@@ -9,21 +9,23 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.DynamicRectangleEntity;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnbreakableWall;
 import nl.thijsdewitt.han_bomber_knights.entities.map.crate.Crate;
-import nl.thijsdewitt.han_bomber_knights.entities.map.crate.CrateEntity;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
 import java.util.List;
 
 public class ExplosionBox extends DynamicRectangleEntity implements Collided, UpdateExposer {
     private ExplosionBox parent;
     private ExplosionSprite sprite;
+    private final Explosion compositeEntity;
 
-    public ExplosionBox() {
-        this(new Coordinate2D());
+    public ExplosionBox(Explosion compositeEntity) {
+        this(compositeEntity, new Coordinate2D());
     }
 
-    public ExplosionBox(Coordinate2D location) {
+    public ExplosionBox(Explosion compositeEntity, Coordinate2D location) {
         super(location, new Size(40, 40));
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        this.compositeEntity = compositeEntity;
     }
 
     @Override
@@ -41,6 +43,10 @@ public class ExplosionBox extends DynamicRectangleEntity implements Collided, Up
 
             if (collider instanceof Crate crate) {
                 crate.destroy();
+            }
+
+            if (collider instanceof Player player) {
+                player.hit(compositeEntity);
             }
         }
 

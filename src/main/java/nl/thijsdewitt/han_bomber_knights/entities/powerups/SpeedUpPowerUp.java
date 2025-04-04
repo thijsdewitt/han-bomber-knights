@@ -15,7 +15,7 @@ public class SpeedUpPowerUp extends AbstractPowerUp {
     public void activate(@NotNull Player player) {
         player.addPowerUpToHud(this);
         playSound();
-        player.setSpeed(player.getSpeed() + 1);
+        player.setWalkSpeed(player.getWalkSpeed() + 1);
     }
 
     @Override

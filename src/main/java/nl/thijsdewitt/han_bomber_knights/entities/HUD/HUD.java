@@ -2,10 +2,7 @@ package nl.thijsdewitt.han_bomber_knights.entities.HUD;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.CompositeEntity;
-import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
-
-import java.util.ArrayList;
 
 public class HUD extends CompositeEntity {
     private Coordinate2D initialLocation;
@@ -19,6 +16,9 @@ public class HUD extends CompositeEntity {
     private SmallIcon hartje2;
     private SmallIcon hartje3;
     private Coordinate2D PowerUpsLocation;
+    private int maxHealth;
+
+    private SmallIcon[] healthIcons;
 
     public HUD(Coordinate2D initialLocation, int width, int height, String iconPath) {
         super(initialLocation);
@@ -26,9 +26,6 @@ public class HUD extends CompositeEntity {
         this.width = width;
         this.height = height;
         this.iconPath = iconPath;
-        hartje1Location = new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 35);
-        hartje2Location = new Coordinate2D(initialLocation.getX() + 135, initialLocation.getY() + 35);
-        hartje3Location = new Coordinate2D(initialLocation.getX() + 170, initialLocation.getY() + 35);
     }
 
     @Override
@@ -39,45 +36,17 @@ public class HUD extends CompositeEntity {
         // add health text and hearts
         Text health = new Text(new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY()), "Health: ");
         addEntity(health);
-        hartje1 = new SmallIcon("sprites/Hartje.png", hartje1Location);
-        addEntity(hartje1);
-        hartje2 = new SmallIcon("sprites/Hartje.png", hartje2Location);
-        addEntity(hartje2);
-        hartje3 = new SmallIcon("sprites/Hartje.png", hartje3Location);
-        addEntity(hartje3);
+
         // add text power-ups
         Text powerUps = new Text(new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 60), "PowerUps: ");
         addEntity(powerUps);
-    }
 
-    public void gainHartje(int health) {
-        switch (health) {
-            case 2:
-                hartje2 = new SmallIcon("sprites/Hartje.png", hartje2Location);
-                addEntity(hartje2);
-                break;
-            case 3:
-                hartje3 = new SmallIcon("sprites/Hartje.png", hartje3Location);
-                addEntity(hartje3);
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void loseHartje(int health) {
-        switch (health) {
-            case 0:
-                hartje2.remove();
-                break;
-            case 1:
-                hartje2.remove();
-                break;
-            case 2:
-                hartje3.remove();
-                break;
-            default:
-                break;
+        // add hearts
+        for (int i = 0; i < healthIcons.length; i++) {
+            var icon = healthIcons[i];
+            Coordinate2D location = new Coordinate2D(initialLocation.getX() + 100 + (i * 35), initialLocation.getY() + 24);
+            icon.setAnchorLocation(location);
+            addEntity(icon);
         }
     }
 
@@ -86,5 +55,23 @@ public class HUD extends CompositeEntity {
         SmallIcon powerUpIcon = new SmallIcon(powerUp.getIconPath(), PowerUpsLocation);
         addEntity(powerUpIcon);
         PowerUpsLocation = new Coordinate2D(PowerUpsLocation.getX() + 35, PowerUpsLocation.getY() + 35);
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+        healthIcons = new SmallIcon[maxHealth];
+        for (int i = 0; i < maxHealth; i++) {
+            healthIcons[i] = new SmallIcon("sprites/hearth.png");
+        }
+    }
+
+    public void setHealth(int health) {
+        for (SmallIcon healthIcon : healthIcons) {
+            healthIcon.setVisible(false);
+        }
+
+        for (int i = 0; i < health; i++) {
+            healthIcons[i].setVisible(true);
+        }
     }
 }

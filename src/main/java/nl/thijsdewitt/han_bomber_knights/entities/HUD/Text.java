@@ -10,7 +10,7 @@ import javafx.scene.text.FontWeight;
 public class Text extends TextEntity {
     public Text(Coordinate2D initialLocation, String text) {
         super(initialLocation, text);
-        setFont(Font.font("Roboto", FontWeight.BOLD, 30));
+        setFont(Font.font("Roboto", FontWeight.BOLD, 18));
         setFill(Color.WHITE);
     }
 }

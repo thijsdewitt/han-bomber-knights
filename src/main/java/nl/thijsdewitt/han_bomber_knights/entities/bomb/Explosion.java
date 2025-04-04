@@ -15,7 +15,7 @@ public class Explosion extends DynamicCompositeEntity implements TimerContainer 
 
     @Override
     protected void setupEntities() {
-        addEntity(new ExplosionBox());
+        addEntity(new ExplosionBox(this));
         addEntity(new ExplosionSprite());
 
         int[][] directions = {{0, -64}, {64, 0}, {0, 64}, {-64, 0},};
@@ -26,7 +26,7 @@ public class Explosion extends DynamicCompositeEntity implements TimerContainer 
                 var location = new Coordinate2D(direction[0] * j, direction[1] * j);
 
                 var sprite = new ExplosionSprite(i % 2 + 2, location);
-                var explosionBox = new ExplosionBox(location);
+                var explosionBox = new ExplosionBox(this, location);
                 explosionBox.setParent(parentBox);
                 explosionBox.setSprite(sprite);
                 addEntity(explosionBox);

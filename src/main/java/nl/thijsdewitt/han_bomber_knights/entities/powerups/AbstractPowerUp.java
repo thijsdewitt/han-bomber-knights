@@ -24,6 +24,7 @@ public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
     }
 
     public abstract void activate(Player player);
+
     public abstract String getIconPath();
 
     @Override
@@ -36,7 +37,7 @@ public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
         });
     }
 
-    public void playSound(){
+    public void playSound() {
         var popSound = new SoundClip("audio/power_up.wav");
         popSound.play();
     }
