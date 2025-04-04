@@ -4,16 +4,12 @@
   <OriginalElement />
   <nodes>
     <node x="-459.0" y="444.5">nl.thijsdewitt.han_bomber_knights.scenes.MapSelectorScene</node>
-    <node x="-528.0" y="592.5">nl.thijsdewitt.han_bomber_knights.entities.tilemap.WorldGen</node>
-    <node x="-528.5" y="804.0">nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp</node>
-    <node x="-801.5" y="592.0">nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp</node>
-    <node x="-317.0" y="816.5">nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp</node>
-    <node x="-605.0" y="284.5">nl.thijsdewitt.han_bomber_knights.scenes.StartScene</node>
-    <node x="-800.0" y="420.0">nl.thijsdewitt.han_bomber_knights.entities.Player</node>
-    <node x="-705.0" y="144.5">nl.thijsdewitt.han_bomber_knights.scenes.GameScene</node>
-    <node x="-803.0" y="816.5">nl.thijsdewitt.han_bomber_knights.entities.powerups.BiggerExplosionPowerUp</node>
-    <node x="-805.0" y="24.5">nl.thijsdewitt.han_bomber_knights.scenes.WinScreen</node>
     <node x="-805.0" y="272.5">nl.thijsdewitt.han_bomber_knights.BomberKnights</node>
+    <node x="-317.0" y="816.5">nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp</node>
+    <node x="-801.5" y="592.0">nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp</node>
+    <node x="-528.5" y="804.0">nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp</node>
+    <node x="-605.0" y="284.5">nl.thijsdewitt.han_bomber_knights.scenes.StartScene</node>
+    <node x="-803.0" y="816.5">nl.thijsdewitt.han_bomber_knights.entities.powerups.BiggerExplosionPowerUp</node>
   </nodes>
   <notes />
   <edges>
@@ -34,7 +30,7 @@
       <point x="0.0" y="56.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="0.8907657657657657" showDependencies="false" x="-453.9999999999999" y="468.0" />
+  <settings layout="Hierarchic Compact" zoom="0.47998902521932896" showDependencies="false" x="97.85255372328345" y="512.568265237338" />
   <SelectedNodes />
   <Categories>
     <Category>Methods</Category>

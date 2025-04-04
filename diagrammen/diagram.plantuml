@@ -1,0 +1,263 @@
+@startuml
+
+skinparam linetype ortho
+package entities {
+    package powerups {
+        class AbstractPowerUp {
+          + onCollision(List<Collider>): void
+          + activate(Player): void
+          + playSound(): void
+        }
+
+        class BiggerExplosionPowerUp {
+          + activate(Player): void
+        }
+
+        class HealthPowerUp {
+          + activate(Player): void
+        }
+
+        class SpeedUpPowerUp {
+          + activate(Player): void
+        }
+    }
+
+    package bomb {
+        class BombEntity {
+          + explode(): void
+          + onExploded(OnExplodedListener): void
+          + setupTimers(): void
+           explosion: Explosion
+        }
+
+        class Explosion {
+          # setupEntities(): void
+          + setupTimers(): void
+        }
+
+        class ExplosionBox {
+          + onCollision(List<Collider>): void
+          + explicitUpdate(long): void
+           sprite: ExplosionSprite
+           parent: ExplosionBox
+        }
+    }
+
+    package HUD {
+        class HUD {
+          # setupEntities(): void
+           maxHealth: int
+           health: int
+        }
+
+        class PlayerIcon
+        class SmallIcon
+        class Text
+    }
+
+    package player {
+        enum Controls << enumeration >> {
+          + values(): Controls[]
+          + valueOf(String): Controls
+        }
+
+        class Player {
+          - adjustVerticalPosition(CollidedTile, double): void
+          + onBombPlace(OnBombPlaceListener): void
+          + resetBombPlaced(): void
+          - adjustHorizontalPosition(CollidedTile, double): void
+          + onPressedKeysChange(Set<KeyCode>): void
+          + handleCollision(CollidedTile): void
+          + hit(Explosion): void
+          - die(): void
+           explosionRadius: int
+           walkSpeed: int
+           health: int
+        }
+    }
+
+    package buttons {
+        package image_button {
+            class ImageButton {
+              + onMouseExited(): void
+              + onClick(OnClickCallback): void
+              + onMouseButtonPressed(MouseButton, Coordinate2D): void
+              + onMouseEntered(): void
+            }
+        }
+
+        package text_button {
+            class TextButton {
+              + onClick(OnClickCallback): void
+              + onMouseButtonPressed(MouseButton, Coordinate2D): void
+              + onMouseExited(): void
+              # setupEntities(): void
+              + onMouseEntered(): void
+            }
+            class TextButtonBox
+            class TextButtonTitle {
+              + SetFill(Color): void
+            }
+        }
+    }
+
+    package map {
+        interface CollidedTile << interface >> {
+          + onCollision(List<Collider>): void
+        }
+        class Crate {
+          + destroy(): void
+        }
+        class CrateEntity {
+          + destroy(): void
+          # setupEntities(): void
+           size: Size
+        }
+        class ExplosionSprite
+        class FireZoneTile
+        entity Image << record >> {
+          + width(): int
+          + height(): int
+          + pixels(): int[]
+           pixels2D: int[][]
+        }
+        class OverlayTileMap {
+          - loadResource(String): Image
+          + defineMap(): int[][]
+          + setupEntities(): void
+        }
+        class Path
+        class PlayerLocation
+        class Tile
+        entity TileConfig << record >> {
+          + resource(): String
+          + frameIndex(): int
+        }
+        class UnbreakableWall
+        class UnderTheCastleTile
+        class UnderTheCastleWall
+        class WorldGenTileMap {
+          + setupEntities(): void
+          + defineMap(): int[][]
+          - loadResource(String): Image
+           columns: int
+           rows: int
+        }
+    }
+}
+class BomberKnights {
+  + setupGame(): void
+  + main(String[]): void
+  + setupScenes(): void
+}
+
+package scenes {
+    class StartScene {
+      + setupEntities(): void
+      + setupScene(): void
+    }
+    class MapSelectorScene {
+      + setupScene(): void
+      + setupEntities(): void
+    }
+    class FireZoneGameScene {
+      + setupScene(): void
+      + setupTileMaps(): void
+      + setupEntities(): void
+    }
+    class UnderTheCastleGameScene {
+      - placeBomb(Player): void
+      + setupTileMaps(): void
+      - getBombLocation(Player): Coordinate2D
+      + setupScene(): void
+      + setupEntities(): void
+    }
+    class WinScene {
+      + setupEntities(): void
+      + setupScene(): void
+    }
+}
+
+AbstractPowerUp          -[#595959,dashed]->  AbstractPowerUp
+AbstractPowerUp          -[#595959,dashed]->  Player
+BiggerExplosionPowerUp   -[#000082,plain]-^  AbstractPowerUp
+BiggerExplosionPowerUp   -[#595959,dashed]->  Player
+BombEntity               -[#595959,dashed]->  Explosion               : "«create»"
+BomberKnights            -[#595959,dashed]->  FireZoneGameScene       : "«create»"
+BomberKnights            -[#595959,dashed]->  MapSelectorScene        : "«create»"
+BomberKnights            -[#595959,dashed]->  StartScene              : "«create»"
+BomberKnights            -[#595959,dashed]->  UnderTheCastleGameScene : "«create»"
+BomberKnights            -[#595959,dashed]->  WinScene                : "«create»"
+CollidedTile             -[#595959,dashed]->  Player
+Crate                    -[#008200,dashed]-^  CollidedTile
+Crate                   "1" *-[#595959,plain]-> "parent\n1" CrateEntity             
+CrateEntity             "1" *-[#595959,plain]-> "powerUp\n1" AbstractPowerUp
+CrateEntity              -[#595959,dashed]->  BiggerExplosionPowerUp  : "«create»"
+CrateEntity              -[#595959,dashed]->  Crate                   : "«create»"
+CrateEntity             "1" *-[#595959,plain]-> "crate\n1" Crate
+CrateEntity              -[#595959,dashed]->  HealthPowerUp           : "«create»"
+CrateEntity              -[#595959,dashed]->  SpeedUpPowerUp          : "«create»"
+Explosion                -[#595959,dashed]->  ExplosionBox            : "«create»"
+Explosion                -[#595959,dashed]->  ExplosionSprite         : "«create»"
+ExplosionBox             -[#595959,dashed]->  Crate
+ExplosionBox            "1" *-[#595959,plain]-> "compositeEntity\n1" Explosion               
+ExplosionBox            "1" *-[#595959,plain]-> "parent\n1" ExplosionBox            
+ExplosionBox            "1" *-[#595959,plain]-> "sprite\n1" ExplosionSprite
+ExplosionBox             -[#595959,dashed]->  Player
+ExplosionBox             -[#595959,dashed]->  UnbreakableWall
+ExplosionSprite          -[#595959,dashed]->  ExplosionSprite
+FireZoneGameScene        -[#595959,dashed]->  FireZoneTile
+FireZoneGameScene        -[#595959,dashed]->  WorldGenTileMap         : "«create»"
+HUD                      -[#595959,dashed]->  PlayerIcon              : "«create»"
+HUD                     "1" *-[#595959,plain]-> "healthIcons\n*" SmallIcon
+HUD                      -[#595959,dashed]->  SmallIcon               : "«create»"
+HUD                      -[#595959,dashed]->  Text                    : "«create»"
+HealthPowerUp            -[#000082,plain]-^  AbstractPowerUp
+HealthPowerUp            -[#595959,dashed]->  Player
+MapSelectorScene        "1" *-[#595959,plain]-> "app\n1" BomberKnights
+MapSelectorScene         -[#595959,dashed]->  ImageButton             : "«create»"
+OverlayTileMap           -[#595959,dashed]->  CrateEntity
+OverlayTileMap           -[#595959,dashed]->  Image                   : "«create»"
+OverlayTileMap           -[#595959,dashed]->  OverlayTileMap
+OverlayTileMap          "1" *-[#595959,plain]-> "player1\n1" Player
+OverlayTileMap           -[#595959,dashed]->  PlayerLocation
+Path                     -[#000082,plain]-^  Tile
+Path                     -[#595959,dashed]->  TileConfig
+Player                   -[#595959,dashed]->  CollidedTile
+Player                  "1" *-[#595959,plain]-> "controls\n1" Controls                
+Player                  "1" *-[#595959,plain]-> "previouslyHit\n1" Explosion               
+Player                  "1" *-[#595959,plain]-> "hud\n1" HUD
+Player                   -[#595959,dashed]->  Player
+PlayerLocation          "1" *-[#595959,plain]-> "player\n1" Player
+SmallIcon                -[#595959,dashed]->  SmallIcon
+SpeedUpPowerUp           -[#000082,plain]-^  AbstractPowerUp
+SpeedUpPowerUp           -[#595959,dashed]->  Player
+StartScene              "1" *-[#595959,plain]-> "app\n1" BomberKnights
+StartScene               -[#595959,dashed]->  TextButton              : "«create»"
+TextButton              "1" *-[#595959,plain]-> "textButtonBox\n1" TextButtonBox
+TextButton               -[#595959,dashed]->  TextButtonBox           : "«create»"
+TextButton              "1" *-[#595959,plain]-> "textButtonTitle\n1" TextButtonTitle
+TextButton               -[#595959,dashed]->  TextButtonTitle         : "«create»"
+Tile                     -[#595959,dashed]->  TileConfig
+UnbreakableWall          -[#008200,dashed]-^  CollidedTile
+UnbreakableWall          -[#000082,plain]-^  Tile
+UnbreakableWall          -[#595959,dashed]->  TileConfig
+UnderTheCastleGameScene  -[#595959,dashed]->  BombEntity              : "«create»"
+UnderTheCastleGameScene  -[#595959,dashed]->  Controls
+UnderTheCastleGameScene  -[#595959,dashed]->  Explosion
+UnderTheCastleGameScene  -[#595959,dashed]->  HUD                     : "«create»"
+UnderTheCastleGameScene  -[#595959,dashed]->  OverlayTileMap          : "«create»"
+UnderTheCastleGameScene "1" *-[#595959,plain]-> "player1\n1" Player
+UnderTheCastleGameScene  -[#595959,dashed]->  Player                  : "«create»"
+UnderTheCastleGameScene  -[#595959,dashed]->  UnderTheCastleGameScene
+UnderTheCastleGameScene  -[#595959,dashed]->  UnderTheCastleTile
+UnderTheCastleGameScene "1" *-[#595959,plain]-> "tileMap\n1" WorldGenTileMap
+UnderTheCastleGameScene  -[#595959,dashed]->  WorldGenTileMap         : "«create»"
+UnderTheCastleWall       -[#008200,dashed]-^  CollidedTile
+UnderTheCastleWall       -[#000082,plain]-^  UnderTheCastleTile
+WorldGenTileMap          -[#595959,dashed]->  Image                   : "«create»"
+WorldGenTileMap          -[#595959,dashed]->  Path
+WorldGenTileMap          -[#595959,dashed]->  TileConfig              : "«create»"
+WorldGenTileMap          -[#595959,dashed]->  UnbreakableWall
+WorldGenTileMap          -[#595959,dashed]->  WorldGenTileMap
+@enduml
