@@ -12,5 +12,9 @@ module bomber_knights {
 
     opens audio;
     opens sprites;
+    opens sprites.hud;
+    opens sprites.map;
+    opens sprites.player;
+    opens sprites.tiles;
     exports nl.thijsdewitt.han_bomber_knights.entities.map.crate;
 }

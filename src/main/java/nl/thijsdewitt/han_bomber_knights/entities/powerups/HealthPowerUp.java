@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HealthPowerUp extends AbstractPowerUp {
     public HealthPowerUp(Size size) {
-        super("sprites/HealthUp.png", new Coordinate2D(), size);
+        super("sprites/tiles/HealthUp.png", new Coordinate2D(), size);
     }
 
     @Override

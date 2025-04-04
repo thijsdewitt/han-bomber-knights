@@ -36,7 +36,7 @@ public class HUD extends CompositeEntity {
     public void setMaxHealth(int maxHealth) {
         healthIcons = new SmallIcon[maxHealth];
         for (int i = 0; i < maxHealth; i++) {
-            healthIcons[i] = new SmallIcon("sprites/hearth.png");
+            healthIcons[i] = new SmallIcon("sprites/hud/hearth.png");
         }
     }
 

@@ -27,7 +27,7 @@ public class WorldGenTileMap extends TileMap {
 
     @Override
     public void setupEntities() {
-        String spritesheet = "sprites/under_the_castle.png";
+        String spritesheet = "sprites/tiles/under_the_castle.png";
 
         addEntity(-1, Path.class, new TileConfig(spritesheet, 5));
         addEntity(0xFF000000, UnbreakableWall.class, new TileConfig(spritesheet, 7));
@@ -45,7 +45,7 @@ public class WorldGenTileMap extends TileMap {
 
     @Override
     public int[][] defineMap() {
-        Image image = loadResource("sprites/world_map.png");
+        Image image = loadResource("sprites/map/world_map.png");
         rows = image.height();
         columns = image.width();
         return image.getPixels2D();

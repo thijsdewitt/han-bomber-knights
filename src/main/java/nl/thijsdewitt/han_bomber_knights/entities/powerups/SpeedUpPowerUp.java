@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpeedUpPowerUp extends AbstractPowerUp {
     public SpeedUpPowerUp(Size size) {
-        super("sprites/SpeedUp.png", new Coordinate2D(), size);
+        super("sprites/tiles/SpeedUp.png", new Coordinate2D(), size);
     }
 
     @Override

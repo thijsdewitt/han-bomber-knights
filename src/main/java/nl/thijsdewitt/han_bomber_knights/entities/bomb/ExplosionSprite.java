@@ -12,7 +12,7 @@ public class ExplosionSprite extends DynamicSpriteEntity {
     }
 
     public ExplosionSprite(int frameIndex, Coordinate2D location) {
-        super("sprites/explosion.png", location, new Size(64), 1, 4);
+        super("sprites/tiles/explosion.png", location, new Size(64), 1, 4);
         setCurrentFrameIndex(frameIndex);
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
         setVisible(false);

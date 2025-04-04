@@ -9,7 +9,7 @@ public class Crate extends SpriteEntity implements CollidedTile, Collider {
     private final CrateEntity parent;
 
     protected Crate(CrateEntity parent) {
-        super("sprites/crate.png", new Coordinate2D(0, 0), parent.getSize());
+        super("sprites/tiles/crate.png", new Coordinate2D(0, 0), parent.getSize());
         this.parent = parent;
     }
 

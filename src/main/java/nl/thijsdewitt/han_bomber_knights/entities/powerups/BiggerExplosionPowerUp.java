@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BiggerExplosionPowerUp extends AbstractPowerUp {
     public BiggerExplosionPowerUp(Size size) {
-        super("sprites/ExplosionRadiusUp.png", new Coordinate2D(), size);
+        super("sprites/tiles/ExplosionRadiusUp.png", new Coordinate2D(), size);
     }
 
     @Override

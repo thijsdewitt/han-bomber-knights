@@ -9,7 +9,7 @@ public class BombEntity extends DynamicSpriteEntity implements TimerContainer {
     private OnExplodedListener onExplodedListener;
 
     public BombEntity(Coordinate2D initialLocation, int explosionRadius) {
-        super("sprites/bomb.png", initialLocation, new Size(32), 1, 15);
+        super("sprites/tiles/bomb.png", initialLocation, new Size(32), 1, 15);
         this.explosionRadius = explosionRadius;
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
         setAutoCycle(100);

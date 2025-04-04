@@ -37,7 +37,7 @@ public class OverlayTileMap extends TileMap {
 
     @Override
     public int[][] defineMap() {
-        Image image = loadResource("sprites/Overlay_map.png");
+        Image image = loadResource("sprites/map/Overlay_map.png");
         return image.getPixels2D();
     }
 

@@ -25,10 +25,10 @@ public class GameScene extends DynamicScene implements TileMapContainer {
 
     @Override
     public void setupEntities() {
-        HUD player1HUD = new HUD(new Coordinate2D(0, 0), "sprites/BlueKnightIcon.png");
-        player1 = new Player("sprites/blue_knight_16x17.png", player1HUD, Controls.WSAD);
-        HUD player2HUD = new HUD(new Coordinate2D(0, 300), "sprites/GreenKnightIcon.png");
-        player2 = new Player("sprites/green_knight_16x17.png", player2HUD, Controls.ARROWS);
+        HUD player1HUD = new HUD(new Coordinate2D(0, 0), "sprites/hud/BlueKnightIcon.png");
+        player1 = new Player("sprites/player/blue_knight_16x17.png", player1HUD, Controls.WSAD);
+        HUD player2HUD = new HUD(new Coordinate2D(0, 300), "sprites/hud/GreenKnightIcon.png");
+        player2 = new Player("sprites/player/green_knight_16x17.png", player2HUD, Controls.ARROWS);
 
         placeBomb(player1);
         placeBomb(player2);
