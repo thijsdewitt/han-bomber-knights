@@ -10,7 +10,7 @@ import nl.thijsdewitt.han_bomber_knights.entities.powerups.BiggerExplosionPowerU
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.HealthPowerUp;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.SpeedUpPowerUp;
 
-public class CrateEntity extends CompositeEntity implements MouseButtonPressedListener {
+public class CrateEntity extends CompositeEntity {
     private Crate crate;
     private AbstractPowerUp powerUp;
     private final Size size;
@@ -29,11 +29,6 @@ public class CrateEntity extends CompositeEntity implements MouseButtonPressedLi
 
     public Size getSize() {
         return size;
-    }
-
-    @Override
-    public void onMouseButtonPressed(MouseButton button, Coordinate2D coordinate2D) {
-        destroy();
     }
 
     @Override
