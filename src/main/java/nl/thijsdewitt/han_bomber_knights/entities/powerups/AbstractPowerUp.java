@@ -14,13 +14,6 @@ public abstract class AbstractPowerUp extends SpriteEntity implements Collided {
 
     public AbstractPowerUp(String resource, Coordinate2D initialLocation, Size size) {
         super(resource, initialLocation, size);
-        if (getShowInHud()) {
-            // TODO: Add to HUD
-        }
-    }
-
-    public boolean getShowInHud() {
-        return true;
     }
 
     public abstract void activate(Player player);

@@ -5,26 +5,20 @@ import com.github.hanyaeger.api.entities.CompositeEntity;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
 
 public class HUD extends CompositeEntity {
-    private Coordinate2D initialLocation;
-    private int width;
-    private int height;
-    private String iconPath;
-    private Coordinate2D hartje1Location;
-    private Coordinate2D hartje2Location;
-    private Coordinate2D hartje3Location;
-    private SmallIcon hartje1;
-    private SmallIcon hartje2;
-    private SmallIcon hartje3;
-    private Coordinate2D PowerUpsLocation;
-    private int maxHealth;
+    private final Coordinate2D initialLocation;
+    private final String iconPath;
+
+    private final SmallIcon[] powerUps = {
+            new SmallIcon("sprites/SpeedUp.png"),
+            new SmallIcon("sprites/HealthUp.png"),
+            new SmallIcon("sprites/ExplosionRadiusUp.png"),
+    };
 
     private SmallIcon[] healthIcons;
 
-    public HUD(Coordinate2D initialLocation, int width, int height, String iconPath) {
+    public HUD(Coordinate2D initialLocation, String iconPath) {
         super(initialLocation);
         this.initialLocation = initialLocation;
-        this.width = width;
-        this.height = height;
         this.iconPath = iconPath;
     }
 
@@ -51,14 +45,12 @@ public class HUD extends CompositeEntity {
     }
 
     public void gainPowerUp(AbstractPowerUp powerUp) {
-        PowerUpsLocation = new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 90);
-        SmallIcon powerUpIcon = new SmallIcon(powerUp.getIconPath(), PowerUpsLocation);
+        Coordinate2D powerUpsLocation = new Coordinate2D(initialLocation.getX() + 100, initialLocation.getY() + 90);
+        SmallIcon powerUpIcon = new SmallIcon(powerUp.getIconPath(), powerUpsLocation);
         addEntity(powerUpIcon);
-        PowerUpsLocation = new Coordinate2D(PowerUpsLocation.getX() + 35, PowerUpsLocation.getY() + 35);
     }
 
     public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
         healthIcons = new SmallIcon[maxHealth];
         for (int i = 0; i < maxHealth; i++) {
             healthIcons[i] = new SmallIcon("sprites/hearth.png");

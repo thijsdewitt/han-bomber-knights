@@ -12,11 +12,6 @@ public class HealthPowerUp extends AbstractPowerUp {
     }
 
     @Override
-    public boolean getShowInHud() {
-        return false;
-    }
-
-    @Override
     public void activate(@NotNull Player player) {
         playSound();
         player.setHealth(player.getHealth() + 1);

@@ -9,7 +9,6 @@ import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Explosion;
-import nl.thijsdewitt.han_bomber_knights.entities.bomb.ExplosionBox;
 import nl.thijsdewitt.han_bomber_knights.entities.map.CollidedTile;
 import nl.thijsdewitt.han_bomber_knights.entities.powerups.AbstractPowerUp;
 
@@ -21,15 +20,13 @@ import static nl.thijsdewitt.han_bomber_knights.entities.player.Controls.WSAD;
 
 public class Player extends DynamicSpriteEntity implements Collider, KeyListener {
     private static final int MAX_HEALTH = 3;
-    private final ArrayList<AbstractPowerUp> powerUps = new ArrayList<>();
+    private final HUD hud;
+    private final Controls controls;
     boolean bombPlaced = false;
-    private String imagePathIcon = "sprites/BlueKnightIcon.png";
     private int health = 3;
     private int explosionRadius = 3;
     private int walkSpeed = 3;
     private OnBombPlaceListener onBombPlaceListener;
-    private HUD hud;
-    private Controls controls;
     private Explosion previouslyHit = null;
 
     public Player(String imagePath, HUD hud, Controls controls) {
@@ -95,7 +92,6 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     }
 
     public void addPowerUpToHud(AbstractPowerUp powerUp) {
-        powerUps.add(powerUp);
         hud.gainPowerUp(powerUp);
     }
 
@@ -201,14 +197,6 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
 
     public void onBombPlace(OnBombPlaceListener listener) {
         this.onBombPlaceListener = listener;
-    }
-
-    public String getIconPath() {
-        return imagePathIcon;
-    }
-
-    public ArrayList<AbstractPowerUp> getPowerUps() {
-        return powerUps;
     }
 
     public void hit(Explosion explosion) {
