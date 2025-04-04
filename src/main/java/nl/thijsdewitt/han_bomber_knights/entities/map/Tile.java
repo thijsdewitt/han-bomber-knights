@@ -5,8 +5,9 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 
-public class Crate extends SpriteEntity implements CollidedTile, Collider {
-    public Crate(Coordinate2D location, Size size) {
-        super("sprites/crate.png", location, size);
+public abstract class Tile extends SpriteEntity implements Collider {
+    public Tile(Coordinate2D location, Size size, TileConfig config) {
+        super(config.resource(), location, size, 3, 10);
+        setCurrentFrameIndex(config.frameIndex());
     }
 }

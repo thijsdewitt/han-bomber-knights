@@ -6,15 +6,13 @@ import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.scenes.TileMapContainer;
 import javafx.scene.paint.Color;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
-import nl.thijsdewitt.han_bomber_knights.entities.bomb.Bomb;
-import nl.thijsdewitt.han_bomber_knights.entities.bomb.ExplosionEntity;
+import nl.thijsdewitt.han_bomber_knights.entities.bomb.BombEntity;
+import nl.thijsdewitt.han_bomber_knights.entities.bomb.Explosion;
 import nl.thijsdewitt.han_bomber_knights.entities.map.CrateTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Controls;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
-
-import java.util.ArrayList;
 
 public class UnderTheCastleGameScene extends DynamicScene implements TileMapContainer {
     private final WorldGenTileMap tileMap = new WorldGenTileMap(UnderTheCastleTile.class);
@@ -31,15 +29,12 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
 
         player1.onBombPlace((player) -> {
             Coordinate2D bombLocation = getBombLocation(player);
-            Bomb bomb = new Bomb(bombLocation, player.getExplosionRadius());
+            BombEntity bomb = new BombEntity(bombLocation, player.getExplosionRadius());
             bomb.onExploded(() -> {
                 player.resetBombPlaced();
 
-                Size mapSize = WorldGenTileMap.SIZE;
-                double tileSize = mapSize.width() / tileMap.getColumns();
-
-                ArrayList<ExplosionEntity> explosions = bomb.getExplosionEntities(bombLocation, tileSize);
-                explosions.forEach(this::addEntity);
+                Explosion explosion = bomb.getExplosion();
+                addEntity(explosion);
             });
             addEntity(bomb);
         });
