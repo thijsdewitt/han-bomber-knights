@@ -5,6 +5,7 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import com.github.hanyaeger.api.scenes.TileMapContainer;
 import javafx.scene.paint.Color;
+import nl.thijsdewitt.han_bomber_knights.BomberKnights;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.BombEntity;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Explosion;
@@ -15,8 +16,13 @@ import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 
 public class GameScene extends DynamicScene implements TileMapContainer {
     private final WorldGenTileMap tileMap = new WorldGenTileMap();
+    private final BomberKnights app;
     Player player1;
     Player player2;
+
+    public GameScene(BomberKnights app) {
+        this.app = app;
+    }
 
     @Override
     public void setupScene() {
@@ -32,6 +38,14 @@ public class GameScene extends DynamicScene implements TileMapContainer {
 
         placeBomb(player1);
         placeBomb(player2);
+
+        player1.dies(() -> {
+            app.setActiveScene(2);
+        });
+
+        player2.dies(() -> {
+            app.setActiveScene(3);
+        });
 
         addEntity(player1HUD);
         addEntity(player1);
