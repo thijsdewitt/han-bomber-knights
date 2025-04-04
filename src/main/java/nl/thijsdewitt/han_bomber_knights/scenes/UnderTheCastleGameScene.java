@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import nl.thijsdewitt.han_bomber_knights.entities.HUD.HUD;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.Bomb;
 import nl.thijsdewitt.han_bomber_knights.entities.bomb.ExplosionEntity;
-import nl.thijsdewitt.han_bomber_knights.entities.map.CrateTileMap;
+import nl.thijsdewitt.han_bomber_knights.entities.map.OverlayTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.map.UnderTheCastleTile;
 import nl.thijsdewitt.han_bomber_knights.entities.map.WorldGenTileMap;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Controls;
@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class UnderTheCastleGameScene extends DynamicScene implements TileMapContainer {
     private final WorldGenTileMap tileMap = new WorldGenTileMap(UnderTheCastleTile.class);
+    Player player1;
+    Player player2;
 
     @Override
     public void setupScene() {
@@ -27,7 +29,9 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
     @Override
     public void setupEntities() {
         HUD player1HUD = new HUD(new Coordinate2D(0, 0), 400, 400, "sprites/BlueKnightIcon.png");
-        Player player1 = new Player(new Coordinate2D(290, 82), player1HUD, Controls.WSAD);
+        player1 = new Player("sprites/blue_knight_16x17.png",player1HUD, Controls.WSAD);
+        HUD player2HUD = new HUD(new Coordinate2D(0, 300), 400, 400, "sprites/GreenKnightIcon.png");
+        player2 = new Player("sprites/green_knight_16x17.png",player2HUD, Controls.ARROWS);
 
         player1.onBombPlace((player) -> {
             Coordinate2D bombLocation = getBombLocation(player);
@@ -46,6 +50,8 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
 
         addEntity(player1HUD);
         addEntity(player1);
+        addEntity(player2HUD);
+        addEntity(player2);
     }
 
     private Coordinate2D getBombLocation(Player player) {
@@ -75,6 +81,6 @@ public class UnderTheCastleGameScene extends DynamicScene implements TileMapCont
     @Override
     public void setupTileMaps() {
         addTileMap(tileMap);
-        addTileMap(new CrateTileMap());
+        addTileMap(new OverlayTileMap(player1, player2));
     }
 }

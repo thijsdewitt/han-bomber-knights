@@ -3,8 +3,9 @@ package nl.thijsdewitt.han_bomber_knights.entities.map;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.TileMap;
+import nl.thijsdewitt.han_bomber_knights.entities.map.crate.CrateEntity;
+import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -15,22 +16,28 @@ import java.io.InputStream;
 
 import static nl.thijsdewitt.han_bomber_knights.BomberKnights.SCREEN_SIZE;
 
-public class CrateTileMap extends TileMap {
+public class OverlayTileMap extends TileMap {
+    Player player1;
+    Player player2;
 
-    public CrateTileMap() {
+    public OverlayTileMap(Player player1, Player player2) {
         super(new Coordinate2D(SCREEN_SIZE.width() / 2, SCREEN_SIZE.height() / 2), new Size(SCREEN_SIZE.height() - 32, SCREEN_SIZE.height() - 32));
 
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     @Override
     public void setupEntities() {
-        addEntity(0xFFA96C12, Crate.class);
+        addEntity(0xFFA96C12, CrateEntity.class);
+        addEntity(0xFF0048FF, PlayerLocation.class, player1);
+        addEntity(0xFF11FF00, PlayerLocation.class, player2);
     }
 
     @Override
     public int[][] defineMap() {
-        Image image = loadResource("sprites/crate_map.png");
+        Image image = loadResource("sprites/Overlay_map.png");
         return image.getPixels2D();
     }
 

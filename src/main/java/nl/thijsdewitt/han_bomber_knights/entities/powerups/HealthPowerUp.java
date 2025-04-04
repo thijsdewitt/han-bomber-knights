@@ -1,13 +1,14 @@
 package nl.thijsdewitt.han_bomber_knights.entities.powerups;
 
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import nl.thijsdewitt.han_bomber_knights.entities.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class HealthPowerUp extends AbstractPowerUp {
-    private String imagePath = "sprites/HealthUp.png";
-    protected HealthPowerUp(String resource, Coordinate2D initialLocation) {
-        super(resource, initialLocation);
+    private String iconPath = "sprites/HealthUp.png";
+    public HealthPowerUp(Size size) {
+        super("sprites/HealthUp.png", new Coordinate2D(), size);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class HealthPowerUp extends AbstractPowerUp {
     }
 
     @Override
-    public String getImagePath(){
-        return imagePath;
+    public String getIconPath() {
+        return iconPath;
     }
 }

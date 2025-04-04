@@ -29,8 +29,8 @@ public class Player extends DynamicSpriteEntity implements Collider, KeyListener
     private HUD hud;
     private Controls controls;
 
-    public Player(Coordinate2D location, HUD hud, Controls controls) {
-        super("sprites/blue_knight_16x17.png", location, new Size(48, 51), 8, 8);
+    public Player(String imagePath, HUD hud, Controls controls) {
+        super(imagePath, new Coordinate2D(), new Size(48, 51), 8, 8);
         setAutoCycle(100);
         setAutoCycleRow(4);
         this.hud = hud;
